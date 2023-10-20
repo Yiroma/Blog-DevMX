@@ -1,8 +1,28 @@
 const express = require("express");
+const { hashPassword } = require("./services/auth");
 
+const postControllers = require("./controllers/postControllers");
 const taskControllers = require("./controllers/taskControllers");
+const userControllers = require("./controllers/userControllers");
+const authControllers = require("./controllers/authControllers");
 
 const router = express.Router();
+
+router.post("/register", hashPassword, userControllers.createUser);
+router.post("/login", authControllers.login);
+router.post("/logout", authControllers.logout);
+
+router.get("/posts", postControllers.getAllPosts);
+router.get("/posts/:id", postControllers.getOnePost);
+router.post("/posts", postControllers.createPost);
+router.put("/posts/:id", postControllers.updatePost);
+router.delete("/posts/:id", postControllers.deletePost);
+
+router.get("/users", userControllers.getAllUsers);
+router.get("/users/:id", userControllers.getOneUser);
+router.post("/users", hashPassword, userControllers.createUser);
+router.put("/users/:id", hashPassword, userControllers.updateUser);
+router.delete("/users/:id", userControllers.deleteUser);
 
 router.get("/", taskControllers.getAllTasks);
 router.get("/:id", taskControllers.getOneTask);

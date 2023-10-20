@@ -1,17 +1,56 @@
 CREATE TABLE
-  `tasks` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `desc` VARCHAR(255) NOT NULL,
-    `checked` TINYINT (1)
+  `user` (
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(45) NOT NULL,
+    `email` VARCHAR(255) NOT NULL,
+    `hashedPassword` VARCHAR(255) NOT NULL,
+    `img` VARCHAR(255) NULL
   );
 
 INSERT INTO
-  `tasks` (`desc`, `checked`)
+  `user` (
+    `id`,
+    `username`,
+    `email`,
+    `hashedPassword`,
+    `img`
+  )
 VALUES
-  ('Faire le CRUD du BLOG', 0),
-  ('Pleurer...', 1),
-  ('Reprendre le projet de zéro', 1),
-  ('Faire une BDD', 1),
-  ('Relier Back et Front', 1),
-  ('Commander un corde à Anthony', 0),
-  ('Faire le Front', 1);
+  (
+    1,
+    'admin',
+    'admin@example.com',
+    '$argon2id$v=19$m=65536,t=5,p=1$HIBnfUUNT2e6WJAdrMAxZg$UmZ5Et4qTzOdkCraqiU9opvQN9TdQmjc+oIL9lFPIQU',
+    'https://randomuser.me/api/portraits/med/men/75.jpg'
+  ),
+  (
+    2,
+    'yiroma',
+    'yiromaric@gmail.com',
+    '$argon2id$v=19$m=65536,t=5,p=1$Tys1Lo1cZcYZWeHfuyz6pQ$7zdPez1DQmXjUne72FxquznmjmshAEnSLYY6OPJnZuw',
+    '/uploads/images/yiroma-profile-300x300.png'
+  );
+
+CREATE TABLE
+  `post` (
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(255) NOT NULL,
+    `desc` VARCHAR(3000) NOT NULL,
+    `img` VARCHAR(255) NOT NULL,
+    `date` DATETIME NOT NULL,
+    `user_id` INT NOT NULL,
+    INDEX `user_id_index` (`user_id` ASC) VISIBLE,
+    CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  );
+
+INSERT INTO
+  `post` (`id`, `title`, `desc`, `img`, `date`, `user_id`)
+VALUES
+  (
+    1,
+    'test Titre',
+    'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
+    'https://picsum.photos/id/48/200/300',
+    '2023-10-20 10:33:00',
+    1
+  );
