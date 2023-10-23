@@ -5,13 +5,6 @@ class UserManager extends AbstractManager {
     super({ table: "user" });
   }
 
-  checkUserExists(user) {
-    return this.database.query(`SELECT email, username FROM ${this.table}`, [
-      user.email,
-      user.username,
-    ]);
-  }
-
   insert(user) {
     return this.database.query(
       `INSERT INTO ${this.table} (username, email, hashedPassword, img) values (?, ?, ?, ?)`,

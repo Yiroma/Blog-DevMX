@@ -1,5 +1,5 @@
 const express = require("express");
-const { hashPassword } = require("./services/auth");
+const { hashPassword, verifyPassword } = require("./services/auth");
 
 const postControllers = require("./controllers/postControllers");
 const taskControllers = require("./controllers/taskControllers");
@@ -8,8 +8,8 @@ const authControllers = require("./controllers/authControllers");
 
 const router = express.Router();
 
-router.post("/register", hashPassword, userControllers.createUser);
-router.post("/login", authControllers.login);
+router.post("/register", hashPassword, authControllers.register);
+router.post("/login", authControllers.login, verifyPassword);
 router.post("/logout", authControllers.logout);
 
 router.get("/posts", postControllers.getAllPosts);

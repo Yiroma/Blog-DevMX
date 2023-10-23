@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Logo from "../assets/Logo-devmx.svg";
@@ -11,6 +11,10 @@ export default function Register() {
     password: "",
   });
 
+  const [err, setError] = useState(null);
+
+  const navigate = useNavigate();
+
   const handleChangeInput = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -18,10 +22,10 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, inputs);
-      console.log(response);
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, inputs);
+      navigate("/login");
     } catch (err) {
-      console.error(err);
+      setError(err.response.data);
     }
   };
 
@@ -29,7 +33,7 @@ export default function Register() {
     <div className="login-container">
       <form>
         <img src={Logo} alt="devMX" />
-        <h1>Identifez-vous</h1>
+        <h1>Enregistrez-vous</h1>
         <label htmlFor="userNameInput">Pseudo</label>
         <input
           required
@@ -60,7 +64,7 @@ export default function Register() {
         <button type="button" onClick={handleSubmit}>
           Créer un compte
         </button>
-        <p>{`Erreur d'identification`}</p>
+        {err && <p>{err}</p>}
         <span>
           Vous avez déjà compte ?<Link to="/login"> Identifiez-vous</Link>
         </span>

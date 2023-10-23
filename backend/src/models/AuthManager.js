@@ -5,10 +5,23 @@ class AuthManager extends AbstractManager {
     super({ table: "user" });
   }
 
-  checkUser(user) {
+  checkUserExists(user) {
+    return this.database.query(`SELECT email, username FROM ${this.table}`, [
+      user.email,
+      user.username,
+    ]);
+  }
+
+  checkUserByEmail(user) {
+    return this.database.query(`SELECT * FROM ${this.table} WHERE email = ?`, [
+      user.email,
+    ]);
+  }
+
+  checkUserByPassword(user) {
     return this.database.query(
-      `SELECT * FROM ${this.table} WHERE email = ? OR username = ?`,
-      [user.email, user.username]
+      `SELECT * FROM ${this.table} WHERE hashedPassword = ?`,
+      [user.hashedPassword]
     );
   }
 }

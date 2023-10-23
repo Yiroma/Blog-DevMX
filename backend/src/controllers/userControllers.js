@@ -31,7 +31,7 @@ const getOneUser = (req, res) => {
 const createUser = (req, res) => {
   const newUser = req.body;
 
-  models.user
+  models.auth
     .checkUserExists(newUser)
     .then(([existingUsers]) => {
       let userExists = false;
@@ -46,7 +46,7 @@ const createUser = (req, res) => {
       }
 
       if (userExists) {
-        res.status(409).json({ error: "User already exists" });
+        res.status(409).json("User already exists");
       } else {
         models.user
           .insert(newUser)
