@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
 
 const hashingOptions = {
   type: argon2.argon2id,
@@ -29,13 +30,23 @@ const verifyPassword = (req, res) => {
       if (isVerified) {
         res.send("Credentials are valid");
       } else {
-        res.sendStatus(401);
+        res.status(401).json("Les informations sont invalides. ");
       }
     })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
+
+  const token = jwt.sign({ id: req.user.id }, "jwtkey");
+  const { password, ...other } = req.user;
+
+  res
+    .cookie("access_token", token, {
+      httpOnly: true,
+    })
+    .status(200)
+    .json(other);
 };
 
 module.exports = { hashPassword, verifyPassword };

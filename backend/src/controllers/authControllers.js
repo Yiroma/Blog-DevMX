@@ -57,7 +57,7 @@ const login = (req, res, next) => {
       }
 
       if (!userExists) {
-        res.status(409).json("User doesn't exists");
+        res.status(401).json("Les informations sont invalides");
       } else {
         req.user = user;
         next();
