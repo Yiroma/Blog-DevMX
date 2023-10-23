@@ -6,14 +6,12 @@ const path = require("node:path");
 // create express app
 
 const express = require("express");
-const cookieParser = require("cookie-parser");
 
 const app = express();
 
 // use some application-level middlewares
 
 app.use(express.json());
-app.use(cookieParser());
 
 const cors = require("cors");
 
@@ -25,6 +23,10 @@ app.use(
 );
 
 // import and mount the API routes
+
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
 
 const router = require("./router");
 

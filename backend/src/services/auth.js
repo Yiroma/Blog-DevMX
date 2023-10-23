@@ -28,7 +28,19 @@ const verifyPassword = (req, res) => {
     .verify(req.user.hashedPassword, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
-        res.send("Credentials are valid");
+        const payload = { sub: req.user.id };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "1h",
+        });
+
+        delete req.user.hashedPassword;
+
+        res.cookie("access_token", token, {
+          httpOnly: true,
+        });
+
+        res.json({ token, user: req.user });
       } else {
         res.status(401).json("Les informations sont invalides. ");
       }
@@ -37,16 +49,6 @@ const verifyPassword = (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-
-  const token = jwt.sign({ id: req.user.id }, "jwtkey");
-  const { password, ...other } = req.user;
-
-  res
-    .cookie("access_token", token, {
-      httpOnly: true,
-    })
-    .status(200)
-    .json(other);
 };
 
 module.exports = { hashPassword, verifyPassword };

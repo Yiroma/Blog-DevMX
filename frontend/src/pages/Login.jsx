@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import Logo from "../assets/Logo-devmx.svg";
 
@@ -21,8 +22,15 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, inputs);
-      navigate("/");
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, inputs);
+      const data = response.data;
+
+      if (data.token) {
+        Cookies.set("access_token", data.token, { expires: 1 / 24 });
+        navigate("/");
+      } else {
+        setError("Erreur d'identification");
+      }
     } catch (err) {
       setError(err.response.data);
     }
