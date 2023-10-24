@@ -4,7 +4,7 @@ const getAll = (req, res) => {
   const cat = req.query.cat || "";
 
   models.post
-    .getAllPosts(cat)
+    .findAllPosts(cat)
     .then(([rows]) => {
       res.send(rows);
     })

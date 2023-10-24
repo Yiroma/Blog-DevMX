@@ -14,10 +14,12 @@ import Delete from "../assets/icons/delete.svg";
 
 export default function Single() {
   const [post, setPost] = useState({});
+  const [user, setUser] = useState({});
 
   const location = useLocation();
 
   const postId = location.pathname.split("/")[2];
+  const userId = post.user_id;
 
   const { currentUser } = useContext(AuthContext);
 
@@ -26,6 +28,7 @@ export default function Single() {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`);
         setPost(response.data);
+        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -33,18 +36,28 @@ export default function Single() {
     fetchData();
   }, [postId]);
 
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/users/${userId}`)
+      .then((res) => {
+        setUser(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, [userId]);
+
   moment.locale("fr");
 
-  const formattedDate = moment(post.date).format("DD/MM/YYYY, hh:mm");
+  const formattedDate = moment(post.date).format("DD/MM/YYYY");
 
   return (
     <div className="single">
       <div className="content">
         <img src={post?.img} alt={post?.title} />
         <div className="user">
-          <img src={User} alt="user" />
+          {user.img && <img src={user.img} alt={user.username} />}
           <div className="info">
-            <span>{post.username}</span>
+            <span>{user.username}</span>
             <p>Publié le {formattedDate}</p>
           </div>
           {currentUser.user.id === post.user_id && (
