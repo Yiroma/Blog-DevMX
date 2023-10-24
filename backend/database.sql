@@ -61,7 +61,7 @@ VALUES
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'actu',
     'https://picsum.photos/id/48/200/300',
-    '2023-10-20 10:33:00',
+    '2023-10-20 10:31:00',
     1
   ),
   (

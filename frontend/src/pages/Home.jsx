@@ -13,14 +13,12 @@ const Home = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts?cat=${cat}`);
         setPosts(response.data);
-        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
   }, [cat]);
-  console.log(cat);
 
   return (
     <div className="home">
