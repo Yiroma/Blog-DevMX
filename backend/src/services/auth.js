@@ -36,11 +36,12 @@ const verifyPassword = (req, res) => {
 
         delete req.user.hashedPassword;
 
-        res.cookie("access_token", token, {
-          httpOnly: true,
-        });
-
-        res.json({ token, user: req.user });
+        res
+          .cookie("access_token", token, {
+            httpOnly: true,
+          })
+          .status(200)
+          .json({ token, user: req.user });
       } else {
         res.status(401).json("Les informations sont invalides. ");
       }

@@ -11,7 +11,12 @@ export default function Write() {
         <div className="content">
           <input type="text" placeholder="Titre du nouvelle article" />
           <div className="editorContainer">
-            <ReactQuill className="editor" theme="snow" value={value} onChange={setValue} />
+            <ReactQuill
+              className="editor"
+              theme="snow"
+              value={value}
+              onChange={setValue}
+            />
           </div>
         </div>
         <div className="menu">
@@ -23,7 +28,12 @@ export default function Write() {
             <span>
               <b>Visibilité: </b> Publique
             </span>
-            <input type="file" name="uploadImg" id="file" style={{ display: "none" }} />
+            <input
+              type="file"
+              name="uploadImg"
+              id="file"
+              style={{ display: "none" }}
+            />
             <label className="uploadFile" htmlFor="file">
               Choisir une image
             </label>

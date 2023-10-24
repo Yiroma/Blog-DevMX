@@ -31,8 +31,14 @@ function Tasks() {
     };
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}`, newTaskData);
-      setTasks([...tasks.filter((task) => task.id !== newTaskData.id), response.data]);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}`,
+        newTaskData
+      );
+      setTasks([
+        ...tasks.filter((task) => task.id !== newTaskData.id),
+        response.data,
+      ]);
       setTasks([...tasks, newTaskData]);
       setNewTask("");
     } catch (error) {
@@ -71,7 +77,11 @@ function Tasks() {
     axios
       .put(`${import.meta.env.VITE_BACKEND_URL}/${task.id}`, updatedTask)
       .then(() => {
-        setTasks(tasks.map((t) => (t.id === task.id ? { ...t, desc: editingTaskDesc } : t)));
+        setTasks(
+          tasks.map((t) =>
+            t.id === task.id ? { ...t, desc: editingTaskDesc } : t
+          )
+        );
         setEditingTaskId(null);
         setEditingTaskDesc("");
       })
@@ -158,7 +168,11 @@ function Tasks() {
                     Edit
                   </button>
 
-                  <button className="btnEditDelete" type="button" onClick={() => editTask(task)}>
+                  <button
+                    className="btnEditDelete"
+                    type="button"
+                    onClick={() => editTask(task)}
+                  >
                     Edit
                   </button>
 

@@ -1,8 +1,18 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../context/authContext";
 
 import Logo from "../assets/logo-devmx.svg";
 
 const Navbar = () => {
+  const { currentUser, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="navbar">
       <div className="container">
@@ -27,8 +37,21 @@ const Navbar = () => {
           <Link className="link" to="/?cat=job">
             <h6>Job</h6>
           </Link>
-          <span>Yiroma</span>
-          <span>Se déconnecter</span>
+          <span>{currentUser?.user.username}</span>
+          {currentUser ? (
+            <span
+              onClick={() => {
+                logout();
+                handleLogout();
+              }}
+            >
+              Se déconnecter
+            </span>
+          ) : (
+            <Link className="link" to="/login">
+              Login
+            </Link>
+          )}
           <span className="publish">
             <Link className="link" to="/write">
               Publier
