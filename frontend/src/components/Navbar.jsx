@@ -17,15 +17,15 @@ const Navbar = () => {
     <div className="navbar">
       <div className="container">
         <div className="logo">
-          <a href="/">
+          <Link to="/">
             <img src={Logo} alt="logo" />
-          </a>
+          </Link>
         </div>
         <div className="links">
           <Link className="link" to="/">
             <h6>Accueil</h6>
           </Link>
-          <Link className="link" to="/?cat=news">
+          <Link className="link" to="/?cat=actu">
             <h6>Actu</h6>
           </Link>
           <Link className="link" to="/?cat=event">

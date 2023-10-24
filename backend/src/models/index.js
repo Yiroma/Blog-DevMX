@@ -34,6 +34,11 @@ const AuthManager = require("./AuthManager");
 models.auth = new AuthManager();
 models.auth.setDatabase(pool);
 
+const PostManager = require("./PostManager");
+
+models.post = new PostManager();
+models.post.setDatabase(pool);
+
 const TaskManager = require("./TaskManager");
 
 models.task = new TaskManager();

@@ -1,10 +1,10 @@
 const express = require("express");
 const { hashPassword, verifyPassword } = require("./services/auth");
 
+const authControllers = require("./controllers/authControllers");
 const postControllers = require("./controllers/postControllers");
 const taskControllers = require("./controllers/taskControllers");
 const userControllers = require("./controllers/userControllers");
-const authControllers = require("./controllers/authControllers");
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.post("/register", hashPassword, authControllers.register);
 router.post("/login", authControllers.login, verifyPassword);
 router.post("/logout", authControllers.logout);
 
-router.get("/posts", postControllers.getAllPosts);
+router.get("/posts", postControllers.getAll);
 router.get("/posts/:id", postControllers.getOnePost);
 router.post("/posts", postControllers.createPost);
 router.put("/posts/:id", postControllers.updatePost);

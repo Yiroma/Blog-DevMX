@@ -1,8 +1,10 @@
 const models = require("../models");
 
-const getAllPosts = (req, res) => {
+const getAll = (req, res) => {
+  const cat = req.query.cat || "";
+
   models.post
-    .findAll()
+    .getAllPosts(cat)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -80,7 +82,7 @@ const deletePost = (req, res) => {
 };
 
 module.exports = {
-  getAllPosts,
+  getAll,
   getOnePost,
   createPost,
   updatePost,
