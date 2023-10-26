@@ -1,4 +1,5 @@
 const models = require("../models");
+const jwt = require("jsonwebtoken");
 
 const getAll = (req, res) => {
   const cat = req.query.cat || "";
@@ -70,6 +71,7 @@ const updatePost = (req, res) => {
 
 const deletePost = (req, res) => {
   const postId = req.params.id;
+
   models.post
     .delete(postId)
     .then(() => {

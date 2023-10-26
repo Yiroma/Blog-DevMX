@@ -33,6 +33,13 @@ class PostManager extends AbstractManager {
       [post.id]
     );
   }
+
+  deletePost(post) {
+    return this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ? AND user_id = ?`,
+      [post.id, post.user_id]
+    );
+  }
 }
 
 module.exports = PostManager;
