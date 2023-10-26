@@ -45,6 +45,7 @@ export default function Single() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/users/${post.user_id}`)
         .then((res) => {
           setUser(res.data);
+          console.log(res.data);
         })
         .catch((err) => console.error(err));
     }
@@ -64,7 +65,9 @@ export default function Single() {
       <div className="content">
         <img src={post?.img} alt={post?.title} />
         <div className="user">
-          {user.img && <img src={user.img} alt={user.username} />}
+          {user.img && (
+            <img src={`${import.meta.env.VITE_BACKEND_URL}${user.img}`} alt={user.username} />
+          )}
           <div className="info">
             <span>{user.username}</span>
             <p>Publié le {formattedDate}</p>
@@ -81,7 +84,7 @@ export default function Single() {
         <h1>{post.title}</h1>
         <p>{post.desc}</p>
       </div>
-      <Menu />
+      <Menu cat={post.cat} />
     </div>
   );
 }
