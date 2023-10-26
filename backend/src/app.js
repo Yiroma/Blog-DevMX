@@ -22,11 +22,11 @@ app.use(
   })
 );
 
-// import and mount the API routes
-
 const cookieParser = require("cookie-parser");
 
 app.use(cookieParser());
+
+// import and mount the API routes
 
 const router = require("./router");
 

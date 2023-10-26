@@ -1,5 +1,8 @@
 const express = require("express");
+const multer = require("multer");
+
 const { hashPassword, verifyPassword } = require("./services/auth");
+const uploadFile = require("./services/uploadFile");
 
 const authControllers = require("./controllers/authControllers");
 const postControllers = require("./controllers/postControllers");
@@ -7,6 +10,10 @@ const taskControllers = require("./controllers/taskControllers");
 const userControllers = require("./controllers/userControllers");
 
 const router = express.Router();
+
+const upload = multer({ dest: "./public/uploads/images/" });
+
+router.post("/upload", upload.single("file"), uploadFile.postFile);
 
 router.post("/register", hashPassword, authControllers.register);
 router.post("/login", authControllers.login, verifyPassword);
