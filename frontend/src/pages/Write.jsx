@@ -1,31 +1,71 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+import moment from "moment";
+import "moment/locale/fr";
+
+import { AuthContext } from "../context/authContext";
+
 export default function Write() {
-  const [value, setValue] = useState("");
-  const [title, setTitle] = useState("");
-  const [file, setFile] = useState(null);
-  const [cat, setCat] = useState("");
-  const [msg, setMsg] = useState("");
+  const { currentUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const state = useLocation().state;
+
+  const [title, setTitle] = useState(state?.title || "");
+  const [value, setValue] = useState(state?.desc || "");
+  const [file, setFile] = useState(state?.img || null);
+  const [cat, setCat] = useState(state?.cat || "");
+
   const [previewImage, setPreviewImage] = useState(
-    `${import.meta.env.VITE_BACKEND_URL}/assets/default-preview.svg`
+    state?.img || `${import.meta.env.VITE_BACKEND_URL}/assets/default-preview.svg`
   );
+
   const inputRef = useRef();
 
-  const handleSubmit = (e) => {
+  moment.locale("fr");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", inputRef.current.files[0]);
-    axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData)
-      .then(() => {
-        setMsg("Upload OK !");
-      })
-      .catch(() => {
-        setMsg("Upload Failed !");
-      });
+
+    try {
+      const formData = new FormData();
+      formData.append("file", inputRef.current.files[0]);
+      const res = axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData);
+      if (res.sendStatus === 200) {
+        setFile(res.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    try {
+      state
+        ? await axios.put(`${import.meta.env.VITE_BACKEND_URL}/posts/${state.id}`, {
+            title,
+            desc: value,
+            cat,
+            img: file ? file : "",
+            date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
+            user_id: currentUser?.user?.id,
+          })
+        : await axios.post(`${import.meta.env.VITE_BACKEND_URL}/posts/`, {
+            title,
+            desc: value,
+            cat,
+            img: file ? file : "",
+            date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
+            user_id: currentUser?.user?.id,
+          });
+    } catch (err) {
+      console.error(err);
+    }
+    navigate("/");
   };
 
   const handleFileChange = (e) => {
@@ -44,8 +84,9 @@ export default function Write() {
         <div className="content">
           <input
             type="text"
+            value={title}
             placeholder="Titre du nouvelle article"
-            onChange={(e) => setTitle(e.target.files[0])}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <div className="editorContainer">
             <ReactQuill className="editor" theme="snow" value={value} onChange={setValue} />
@@ -82,7 +123,12 @@ export default function Write() {
                 src={previewImage}
                 alt="prévisualisation de l'image"
                 id="previewImage"
-                style={{ width: "auto", height: "200px" }}
+                style={{
+                  width: "200px",
+                  height: "130px",
+                  objectFit: "contain",
+                  borderRadius: "10px",
+                }}
               />
 
               <div className="buttons">
@@ -97,6 +143,7 @@ export default function Write() {
             <div className="cat">
               <input
                 type="radio"
+                checked={cat === "actu"}
                 name="cat"
                 value="actu"
                 id="actu"
@@ -108,6 +155,7 @@ export default function Write() {
             <div className="cat">
               <input
                 type="radio"
+                checked={cat === "event"}
                 name="cat"
                 value="event"
                 id="event"
@@ -119,6 +167,7 @@ export default function Write() {
             <div className="cat">
               <input
                 type="radio"
+                checked={cat === "tips"}
                 name="cat"
                 value="tips"
                 id="tips"
@@ -130,6 +179,7 @@ export default function Write() {
             <div className="cat">
               <input
                 type="radio"
+                checked={cat === "job"}
                 name="cat"
                 value="job"
                 id="job"

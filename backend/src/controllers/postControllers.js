@@ -1,5 +1,4 @@
 const models = require("../models");
-const jwt = require("jsonwebtoken");
 
 const getAll = (req, res) => {
   const cat = req.query.cat || "";
@@ -32,9 +31,10 @@ const getOnePost = (req, res) => {
 };
 
 const createPost = (req, res) => {
-  const newPost = req.body;
+  const post = req.body;
+
   models.post
-    .insert(newPost)
+    .insertPost(post)
     .then((createdPost) => {
       res.status(201).json(createdPost);
     })
@@ -55,7 +55,7 @@ const updatePost = (req, res) => {
   }
 
   models.post
-    .update(post)
+    .updatePost(post)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);

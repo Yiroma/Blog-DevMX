@@ -40,6 +40,28 @@ class PostManager extends AbstractManager {
       [post.id, post.user_id]
     );
   }
+
+  insertPost(post) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (title, \`desc\`, img, cat, date, user_id) VALUES (?, ?, ?, ?, ?, ?)`,
+      [post.title, post.desc, post.img, post.cat, post.date, post.user_id]
+    );
+  }
+
+  updatePost(post) {
+    return this.database.query(
+      `UPDATE ${this.table} SET title = ?, \`desc\` = ?, img = ?, cat = ?, date = ?, user_id = ? WHERE id = ?`,
+      [
+        post.title,
+        post.desc,
+        post.img,
+        post.cat,
+        post.date,
+        post.user_id,
+        post.id,
+      ]
+    );
+  }
 }
 
 module.exports = PostManager;

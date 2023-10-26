@@ -18,14 +18,12 @@ export default function Single() {
   const { currentUser } = useContext(AuthContext);
 
   moment.locale("fr");
-  const formattedDate = moment(post.date).format("DD/MM/YYYY");
+  const formattedDate = moment(post.date).format("DD/MM/YYYY HH:mm");
 
   const location = useLocation();
   const postId = location.pathname.split("/")[2];
 
   const navigate = useNavigate();
-
-  // const userId = post.user_id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +43,6 @@ export default function Single() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/users/${post.user_id}`)
         .then((res) => {
           setUser(res.data);
-          console.log(res.data);
         })
         .catch((err) => console.error(err));
     }
@@ -74,7 +71,7 @@ export default function Single() {
           </div>
           {currentUser.user.id === post.user_id && (
             <div className="edit">
-              <Link to="/write?edit=1">
+              <Link to={`/write?edit=${post.id}`} state={post}>
                 <img src={Edit} alt="edit" />
               </Link>
               <img onClick={handleDelete} src={Delete} alt="delete" />
@@ -82,7 +79,7 @@ export default function Single() {
           )}
         </div>
         <h1>{post.title}</h1>
-        <p>{post.desc}</p>
+        {post.desc}
       </div>
       <Menu cat={post.cat} />
     </div>

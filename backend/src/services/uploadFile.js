@@ -12,10 +12,11 @@ const postFile = (req, res) => {
     (err) => {
       if (err) {
         throw err;
+      } else {
+        res.status(201).send(newName);
       }
     }
   );
-  res.status(201).send(newName);
 };
 
 module.exports = {
