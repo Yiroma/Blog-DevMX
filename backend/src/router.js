@@ -1,19 +1,16 @@
 const express = require("express");
 const multer = require("multer");
 
-const { hashPassword, verifyPassword } = require("./services/auth");
+const upload = multer({ dest: "./public/uploads/images/" });
 const uploadFile = require("./services/uploadFile");
+
+const { hashPassword, verifyPassword } = require("./services/auth");
 
 const authControllers = require("./controllers/authControllers");
 const postControllers = require("./controllers/postControllers");
-const taskControllers = require("./controllers/taskControllers");
 const userControllers = require("./controllers/userControllers");
 
 const router = express.Router();
-
-const upload = multer({ dest: "./public/uploads/images/" });
-
-router.post("/upload", upload.single("file"), uploadFile.postFile);
 
 router.post("/register", hashPassword, authControllers.register);
 router.post("/login", authControllers.login, verifyPassword);
@@ -31,10 +28,6 @@ router.post("/users", hashPassword, userControllers.createUser);
 router.put("/users/:id", hashPassword, userControllers.updateUser);
 router.delete("/users/:id", userControllers.deleteUser);
 
-router.get("/", taskControllers.getAllTasks);
-router.get("/:id", taskControllers.getOneTask);
-router.post("/", taskControllers.createTask);
-router.put("/:id", taskControllers.updateTask);
-router.delete("/:id", taskControllers.deleteTask);
+router.post("/upload", upload.single("file"), uploadFile.postFile);
 
 module.exports = router;

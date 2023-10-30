@@ -1,4 +1,5 @@
 const models = require("../models");
+const { postFile } = require("../services/uploadFile");
 
 const getAll = (req, res) => {
   const cat = req.query.cat || "";
@@ -32,7 +33,6 @@ const getOnePost = (req, res) => {
 
 const createPost = (req, res) => {
   const post = req.body;
-
   models.post
     .insertPost(post)
     .then((createdPost) => {

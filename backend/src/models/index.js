@@ -30,21 +30,14 @@ pool.getConnection().catch(() => {
 const models = {};
 
 const AuthManager = require("./AuthManager");
+const PostManager = require("./PostManager");
+const UserManager = require("./UserManager");
 
 models.auth = new AuthManager();
 models.auth.setDatabase(pool);
 
-const PostManager = require("./PostManager");
-
 models.post = new PostManager();
 models.post.setDatabase(pool);
-
-const TaskManager = require("./TaskManager");
-
-models.task = new TaskManager();
-models.task.setDatabase(pool);
-
-const UserManager = require("./UserManager");
 
 models.user = new UserManager();
 models.user.setDatabase(pool);

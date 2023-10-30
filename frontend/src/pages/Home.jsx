@@ -26,7 +26,10 @@ const Home = () => {
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-              <img src={post.img} alt="post cover" />
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post?.img}`}
+                alt="post cover"
+              />
             </div>
             <div className="content">
               <Link className="link" to={`/post/${post.id}`}>

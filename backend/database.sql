@@ -21,14 +21,14 @@ VALUES
     'Néo',
     'admin@example.com',
     '$argon2id$v=19$m=65536,t=5,p=1$HIBnfUUNT2e6WJAdrMAxZg$UmZ5Et4qTzOdkCraqiU9opvQN9TdQmjc+oIL9lFPIQU',
-    '/uploads/images/admin.jpeg'
+    'admin.jpeg'
   ),
   (
     2,
     'Yiroma',
     'yiromaric@gmail.com',
     '$argon2id$v=19$m=65536,t=5,p=1$Tys1Lo1cZcYZWeHfuyz6pQ$7zdPez1DQmXjUne72FxquznmjmshAEnSLYY6OPJnZuw',
-    '/uploads/images/yiroma-profile-300x300.png'
+    'yiroma-profile-300x300.png'
   );
 
 CREATE TABLE
@@ -60,7 +60,7 @@ VALUES
     'Titre Actu',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'actu',
-    'https://picsum.photos/id/48/200/300',
+    'Actu01.webp',
     '2023-10-20 10:30:00',
     1
   ),
@@ -69,7 +69,7 @@ VALUES
     'Titre Actu 2',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'actu',
-    'https://picsum.photos/id/49/200/300',
+    'Actu02.webp',
     '2023-10-21 10:31:00',
     2
   ),
@@ -78,7 +78,7 @@ VALUES
     'Titre Actu 3',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'actu',
-    'https://picsum.photos/id/50/200/300',
+    'Actu03.webp',
     '2023-10-22 10:31:00',
     1
   ),
@@ -87,7 +87,7 @@ VALUES
     'Titre Event 1',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'event',
-    'https://picsum.photos/id/51/200/300',
+    'Event01.webp',
     '2023-10-20 10:33:00',
     1
   ),
@@ -96,7 +96,7 @@ VALUES
     'Titre Event 2',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'event',
-    'https://picsum.photos/id/52/200/300',
+    'Event02.webp',
     '2023-10-21 10:33:00',
     2
   ),
@@ -105,7 +105,7 @@ VALUES
     'Titre Event 3',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'event',
-    'https://picsum.photos/id/53/200/300',
+    'Event03.webp',
     '2023-10-22 10:33:00',
     1
   ),
@@ -114,7 +114,7 @@ VALUES
     'Titre Event 4',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'event',
-    'https://picsum.photos/id/54/200/300',
+    'Event04.webp',
     '2023-10-23 10:33:00',
     2
   ),
@@ -123,7 +123,7 @@ VALUES
     'Titre Tip&Atuce 1',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'tips',
-    'https://picsum.photos/id/55/200/300',
+    'Tips01.webp',
     '2023-10-20 10:33:00',
     1
   ),
@@ -132,7 +132,7 @@ VALUES
     'Titre Tip&Atuce 2',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'tips',
-    'https://picsum.photos/id/56/200/300',
+    'Tips02.webp',
     '2023-10-21 10:33:00',
     2
   ),
@@ -141,7 +141,7 @@ VALUES
     'Titre Tip&Atuce 3',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'tips',
-    'https://picsum.photos/id/57/200/300',
+    'Tips03.webp',
     '2023-10-22 10:33:00',
     1
   ),
@@ -150,7 +150,7 @@ VALUES
     'Titree JOB 1',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'job',
-    'https://picsum.photos/id/58/200/300',
+    'job01.webp',
     '2023-10-20 10:33:00',
     1
   ),
@@ -159,7 +159,7 @@ VALUES
     'Titree JOB 2',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'job',
-    'https://picsum.photos/id/58/200/300',
+    'job02.webp',
     '2023-10-21 10:33:00',
     2
   ),
@@ -168,7 +168,7 @@ VALUES
     'Titree JOB 3',
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium, quam natus blanditiis, tempora distinctio suscipit temporibus perspiciatis ducimus doloribus sed officia qui a ullam sit nemo, illum reiciendis numquam quibusdam maiores eius? Neque eligendi laboriosam minus labore nihil odit repellendus. Architecto cupiditate qui minus nesciunt sapiente quam repudiandae asperiores beatae recusandae, aliquid dolor iste accusantium eveniet fuga laboriosam esse iusto quo deleniti! Iste quas alias ullam, accusamus commodi natus vel ad nihil amet quis voluptate est perferendis quos dolores nostrum explicabo quia ab neque rerum. Ullam aut alias impedit a, beatae excepturi! Nesciunt reprehenderit, dolores aut aspernatur illo quidem a.',
     'job',
-    'https://picsum.photos/id/58/200/300',
+    'job03.webp',
     '2023-10-22 10:33:00',
     1
   );

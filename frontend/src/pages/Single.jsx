@@ -60,10 +60,16 @@ export default function Single() {
   return (
     <div className="single">
       <div className="content">
-        <img src={post?.img} alt={post?.title} />
+        <img
+          src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post?.img}`}
+          alt={post?.title}
+        />
         <div className="user">
           {user.img && (
-            <img src={`${import.meta.env.VITE_BACKEND_URL}${user.img}`} alt={user.username} />
+            <img
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${user.img}`}
+              alt={user.username}
+            />
           )}
           <div className="info">
             <span>{user.username}</span>
@@ -81,7 +87,7 @@ export default function Single() {
         <h1>{post.title}</h1>
         {post.desc}
       </div>
-      <Menu cat={post.cat} />
+      <Menu cat={post.cat} currentPostId={postId} />
     </div>
   );
 }
