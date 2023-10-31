@@ -1,8 +1,11 @@
 const models = require("../models");
+const { postFile } = require("../services/uploadFile");
 
-const getAllTasks = (req, res) => {
-  models.task
-    .findAll()
+const getAll = (req, res) => {
+  const cat = req.query.cat || "";
+
+  models.post
+    .findAllPosts(cat)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -12,8 +15,8 @@ const getAllTasks = (req, res) => {
     });
 };
 
-const getOneTask = (req, res) => {
-  models.task
+const getOnePost = (req, res) => {
+  models.post
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -28,33 +31,31 @@ const getOneTask = (req, res) => {
     });
 };
 
-const createTask = (req, res) => {
-  const newTask = req.body;
-  models.task
-    .insert(newTask)
-    .then((createdTask) => {
-      res.status(201).json(createdTask);
+const createPost = (req, res) => {
+  const post = req.body;
+  models.post
+    .insertPost(post)
+    .then((createdPost) => {
+      res.status(201).json(createdPost);
     })
     .catch((err) => {
       console.error(err);
-      res
-        .status(500)
-        .json({ error: "Erreur lors de la création de la tâche." });
+      res.status(500).json({ error: "Erreur lors de la création du post." });
     });
 };
 
-const updateTask = (req, res) => {
-  const task = req.body;
+const updatePost = (req, res) => {
+  const post = req.body;
 
-  task.id = parseInt(req.params.id, 10);
+  post.id = parseInt(req.params.id, 10);
 
-  if (!task.desc) {
+  if (!post.desc) {
     res.status(200).json({ message: "Modification ok." });
     return;
   }
 
-  models.task
-    .update(task)
+  models.post
+    .updatePost(post)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -68,25 +69,23 @@ const updateTask = (req, res) => {
     });
 };
 
-const deleteTask = (req, res) => {
-  const taskId = req.params.id;
-  models.task
-    .delete(taskId)
+const deletePost = (req, res) => {
+  const postId = req.params.id;
+  models.post
+    .delete(postId)
     .then(() => {
       res.sendStatus(200);
     })
     .catch((err) => {
       console.error(err);
-      res
-        .status(500)
-        .json({ error: "Erreur lors de la suppression de la tâche." });
+      res.status(500).json({ error: "Erreur lors de la suppression du post." });
     });
 };
 
 module.exports = {
-  getAllTasks,
-  getOneTask,
-  createTask,
-  updateTask,
-  deleteTask,
+  getAll,
+  getOnePost,
+  createPost,
+  updatePost,
+  deletePost,
 };

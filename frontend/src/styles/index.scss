@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100;200;300;400;500;600;700;800;900&display=swap');
-$fontFamily: 'Onest', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100;200;300;400;500;600;700;800;900&display=swap");
+$fontFamily: "Onest", sans-serif;
 
 $blue: #66abe8;
 $lightBlue: #c8e5ff;
@@ -16,7 +16,7 @@ $lightGray: #ccc;
 .app {
   display: flex;
   justify-content: center;
-  
+
   .container {
     width: 1024px;
 
@@ -24,9 +24,10 @@ $lightGray: #ccc;
       text-decoration: none;
       color: inherit;
     }
+
     //LOGIN & REGISTER
 
-    .auth {
+    .login-container {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -113,13 +114,13 @@ $lightGray: #ccc;
             font-weight: 600;
             border: 1px solid white;
             transition: 0.3s ease;
-            
+
             &:hover {
-                color: $blue;
-                background-color: $lightBlue;
-                border: 1px solid $blue;
-                box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
-                transform: scale(1.05);
+              color: $blue;
+              background-color: $lightBlue;
+              border: 1px solid $blue;
+              box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+              transform: scale(1.05);
             }
           }
         }
@@ -142,10 +143,10 @@ $lightGray: #ccc;
 
       .credit {
         a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: $blue;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: $blue;
         }
       }
     }
@@ -363,34 +364,34 @@ $lightGray: #ccc;
         .item {
           border: 1px solid lightgray;
           padding: 10px;
-          flex:1;
+          flex: 1;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           font-size: 12px;
           color: #555;
 
-          h1{
+          h1 {
             font-size: 20px;
           }
 
-          .file{
+          .file {
             text-decoration: underline;
             cursor: pointer;
           }
 
-          .buttons{
+          .buttons {
             display: flex;
             justify-content: space-between;
 
-            :first-child{
+            :first-child {
               cursor: pointer;
               color: $blue;
               background-color: white;
               border: 1px solid $blue;
               padding: 3px 5px;
             }
-            :last-child{
+            :last-child {
               cursor: pointer;
               color: white;
               background-color: $blue;
@@ -399,7 +400,7 @@ $lightGray: #ccc;
             }
           }
 
-          .cat{
+          .cat {
             display: flex;
             align-items: center;
             gap: 2px;

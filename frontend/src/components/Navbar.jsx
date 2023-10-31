@@ -1,21 +1,31 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../context/authContext";
 
 import Logo from "../assets/logo-devmx.svg";
 
 const Navbar = () => {
+  const { currentUser, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="navbar">
       <div className="container">
         <div className="logo">
-          <a href="/">
+          <Link to="/">
             <img src={Logo} alt="logo" />
-          </a>
+          </Link>
         </div>
         <div className="links">
           <Link className="link" to="/">
             <h6>Accueil</h6>
           </Link>
-          <Link className="link" to="/?cat=news">
+          <Link className="link" to="/?cat=actu">
             <h6>Actu</h6>
           </Link>
           <Link className="link" to="/?cat=event">
@@ -27,8 +37,23 @@ const Navbar = () => {
           <Link className="link" to="/?cat=job">
             <h6>Job</h6>
           </Link>
-          <span>Yiroma</span>
-          <span>Se déconnecter</span>
+          <Link className="link" to={`/users/${currentUser.user.id}`}>
+            <span>{currentUser?.user.username}</span>
+          </Link>
+          {currentUser ? (
+            <span
+              onClick={() => {
+                logout();
+                handleLogout();
+              }}
+            >
+              Se déconnecter
+            </span>
+          ) : (
+            <Link className="link" to="/login">
+              Login
+            </Link>
+          )}
           <span className="publish">
             <Link className="link" to="/write">
               Publier
