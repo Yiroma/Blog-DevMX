@@ -23,7 +23,9 @@ export default function Write() {
   const [cat, setCat] = useState(state?.cat || "");
 
   const [previewImage, setPreviewImage] = useState(
-    state?.img || `${import.meta.env.VITE_BACKEND_URL}/assets/default-preview.svg`
+    state
+      ? `${import.meta.env.VITE_BACKEND_URL}/uploads/images/${state?.img}`
+      : `${import.meta.env.VITE_BACKEND_URL}/assets/default-preview.svg`
   );
 
   const inputRef = useRef();
@@ -39,7 +41,6 @@ export default function Write() {
 
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData);
       if (res.status === 201) {
-        console.log(res.data);
         if (state) {
           await axios.put(`${import.meta.env.VITE_BACKEND_URL}/posts/${state.id}`, {
             title,

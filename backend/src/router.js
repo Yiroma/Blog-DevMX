@@ -29,5 +29,6 @@ router.put("/users/:id", hashPassword, userControllers.updateUser);
 router.delete("/users/:id", userControllers.deleteUser);
 
 router.post("/upload", upload.single("file"), uploadFile.postFile);
+router.delete("/deleteImg/:imgName", uploadFile.deleteImg);
 
 module.exports = router;

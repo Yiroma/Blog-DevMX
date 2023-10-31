@@ -70,25 +70,16 @@ const updatePost = (req, res) => {
 };
 
 const deletePost = (req, res) => {
-  const token = req.cookies.access_token;
-  if (!token) return res.status(401).json("Not authenficated !");
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, userInfo) => {
-    if (err) return res.status(403);
-
-    const postId = req.params.id;
-    models.post
-      .deletePost(postId)
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch((err) => {
-        console.error(err);
-        res
-          .status(500)
-          .json({ error: "Erreur lors de la suppression du post." });
-      });
-  });
+  const postId = req.params.id;
+  models.post
+    .delete(postId)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Erreur lors de la suppression du post." });
+    });
 };
 
 module.exports = {

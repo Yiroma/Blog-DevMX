@@ -51,10 +51,24 @@ export default function Single() {
   const handleDelete = async () => {
     try {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`);
-      navigate("/");
+
+      const deleteImgRes = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/deleteImg/${post?.img}`
+      );
+
+      if (deleteImgRes.status === 201) {
+        navigate("/");
+      } else {
+        console.error("Erreur lors de la suppression de l'image.");
+      }
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
   };
 
   return (
@@ -67,7 +81,7 @@ export default function Single() {
         <div className="user">
           {user.img && (
             <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${user.img}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
               alt={user.username}
             />
           )}
@@ -85,7 +99,7 @@ export default function Single() {
           )}
         </div>
         <h1>{post.title}</h1>
-        {post.desc}
+        {getText(post.desc)}
       </div>
       <Menu cat={post.cat} currentPostId={postId} />
     </div>
