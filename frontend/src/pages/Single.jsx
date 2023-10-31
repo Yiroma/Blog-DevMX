@@ -71,6 +71,8 @@ export default function Single() {
     return doc.body.textContent;
   };
 
+  console.log(post.cat);
+
   return (
     <div className="single">
       <div className="content">

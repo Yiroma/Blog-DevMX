@@ -1,6 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import PropTypes from "prop-types";
 
 function Menu({ cat, currentPostId }) {
   const [posts, setPosts] = useState([]);
@@ -29,7 +30,7 @@ function Menu({ cat, currentPostId }) {
             alt={post.title}
           />
           <h2>{post.title}</h2>
-          <Link className="link" to={`/post/${post.id}`}>
+          <Link className="link" to={`/posts/${post.id}`}>
             <button>{`Voir l'article`}</button>
           </Link>
         </div>
@@ -37,5 +38,10 @@ function Menu({ cat, currentPostId }) {
     </div>
   );
 }
+
+Menu.propTypes = {
+  cat: PropTypes.string,
+  currentPostId: PropTypes.number.isRequired,
+};
 
 export default Menu;
