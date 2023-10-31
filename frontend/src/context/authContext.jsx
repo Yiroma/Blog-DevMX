@@ -13,15 +13,15 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, inputs);
-      setCurrentUser(response.data);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, inputs);
+      setCurrentUser(res.data);
 
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(res.data));
 
-      return response;
-    } catch (error) {
-      console.error(error);
-      throw error;
+      return res;
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
   };
 

@@ -9,10 +9,10 @@ function Menu({ cat, currentPostId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/?cat=${cat}`);
-        setPosts(response.data);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/?cat=${cat}`);
+        setPosts(res.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     fetchData();
@@ -41,7 +41,7 @@ function Menu({ cat, currentPostId }) {
 
 Menu.propTypes = {
   cat: PropTypes.string,
-  currentPostId: PropTypes.number.isRequired,
+  currentPostId: PropTypes.string,
 };
 
 export default Menu;

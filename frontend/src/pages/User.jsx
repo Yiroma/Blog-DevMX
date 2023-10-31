@@ -37,8 +37,6 @@ export default function User() {
   const handleDelete = (postId, imgName) => {
     setPostIdToDelete(postId);
     setImageToDelete(imgName);
-    console.log(postId);
-    console.log(imgName);
   };
 
   const confirmDelete = async () => {
@@ -50,10 +48,10 @@ export default function User() {
           await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteImg/${imageToDelete}`);
         }
 
+        setCreatedPosts((prevPosts) => prevPosts.filter((post) => post.id !== postIdToDelete));
+
         setPostIdToDelete(null);
         setImageToDelete(null);
-
-        window.location.reload();
       } catch (err) {
         console.error(err);
       }

@@ -31,7 +31,7 @@ export default function Single() {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`);
         setPost(response.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     fetchData();
@@ -71,8 +71,6 @@ export default function Single() {
     return doc.body.textContent;
   };
 
-  console.log(post.cat);
-
   return (
     <div className="single">
       <div className="content">
@@ -80,26 +78,40 @@ export default function Single() {
           src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post?.img}`}
           alt={post?.title}
         />
-        <div className="user">
-          {user.img && (
+        {currentUser && currentUser.user ? (
+          <div className="user">
+            {user.img && (
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+                alt={user.username}
+              />
+            )}
+            <div className="info">
+              <span>{user.username}</span>
+              <p>Publié le {formattedDate}</p>
+            </div>
+            {currentUser.user.id === post.user_id && (
+              <div className="edit">
+                <Link to={`/write?edit=${post.id}`} state={post}>
+                  <img src={Edit} alt="edit" />
+                </Link>
+                <img onClick={handleDelete} src={Delete} alt="delete" />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="user">
             <img
               src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
               alt={user.username}
             />
-          )}
-          <div className="info">
-            <span>{user.username}</span>
-            <p>Publié le {formattedDate}</p>
-          </div>
-          {currentUser.user.id === post.user_id && (
-            <div className="edit">
-              <Link to={`/write?edit=${post.id}`} state={post}>
-                <img src={Edit} alt="edit" />
-              </Link>
-              <img onClick={handleDelete} src={Delete} alt="delete" />
+            <div className="info">
+              <span>{user.username}</span>
+              <p>Publié le {formattedDate}</p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+
         <h1>{post.title}</h1>
         {getText(post.desc)}
       </div>
