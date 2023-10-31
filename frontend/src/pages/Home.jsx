@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
-const Home = () => {
+export default function Home() {
   const [posts, setPosts] = useState([]);
 
   const searchParams = new URLSearchParams(useLocation().search);
@@ -11,10 +11,11 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts?cat=${cat}`);
-        setPosts(response.data);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts?cat=${cat}`);
+        const sortedPosts = res.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setPosts(sortedPosts);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     fetchData();
@@ -37,11 +38,11 @@ const Home = () => {
               />
             </div>
             <div className="content">
-              <Link className="link" to={`/post/${post.id}`}>
+              <Link className="link" to={`/posts/${post.id}`}>
                 <h1>{post.title}</h1>
               </Link>
               {getText(post.desc)}
-              <Link className="link" to={`/post/${post.id}`}>
+              <Link className="link" to={`/posts/${post.id}`}>
                 <button>Read More</button>
               </Link>
             </div>
@@ -50,6 +51,4 @@ const Home = () => {
       </div>
     </div>
   );
-};
-
-export default Home;
+}

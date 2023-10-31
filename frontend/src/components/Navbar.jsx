@@ -37,7 +37,9 @@ const Navbar = () => {
           <Link className="link" to="/?cat=job">
             <h6>Job</h6>
           </Link>
-          <span>{currentUser?.user.username}</span>
+          <Link className="link" to={`/users/${currentUser.user.id}`}>
+            <span>{currentUser?.user.username}</span>
+          </Link>
           {currentUser ? (
             <span
               onClick={() => {
