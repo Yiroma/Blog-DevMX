@@ -1,28 +1,27 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  // Récupérer l'utilisateur depuis localStorage ou initialiser à null
   const storedUser = localStorage.getItem("user");
   const initialUser = storedUser ? JSON.parse(storedUser) || null : null;
   const [currentUser, setCurrentUser] = useState(initialUser);
 
   const login = async (inputs) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, inputs);
-      setCurrentUser(response.data);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, inputs);
+      setCurrentUser(res.data);
 
-      // Sauvegarder currentUser en tant que chaîne JSON dans localStorage
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(res.data));
 
-      return response;
-    } catch (error) {
-      console.error(error);
-      throw error;
+      return res;
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
   };
 
@@ -30,7 +29,6 @@ export const AuthContextProvider = ({ children }) => {
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/logout`, inputs);
 
-      // Supprimer currentUser de localStorage
       localStorage.removeItem("user");
 
       Cookies.remove("access_token");
@@ -42,11 +40,14 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Sauvegarder currentUser lorsqu'il change
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
     <AuthContext.Provider value={{ currentUser, login, logout }}>{children}</AuthContext.Provider>
   );
+};
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.node,
 };

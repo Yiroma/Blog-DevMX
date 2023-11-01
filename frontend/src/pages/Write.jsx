@@ -19,7 +19,6 @@ export default function Write() {
 
   const [title, setTitle] = useState(state?.title || "");
   const [value, setValue] = useState(state?.desc || "");
-  const [file, setFile] = useState(state?.img || null);
   const [cat, setCat] = useState(state?.cat || "");
 
   const [previewImage, setPreviewImage] = useState(
@@ -60,9 +59,6 @@ export default function Write() {
             user_id: currentUser?.user?.id,
           });
         }
-
-        setFile(res.data);
-
         navigate("/");
       }
     } catch (err) {

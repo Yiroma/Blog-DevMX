@@ -37,27 +37,36 @@ const Navbar = () => {
           <Link className="link" to="/?cat=job">
             <h6>Job</h6>
           </Link>
-          <Link className="link" to={`/users/${currentUser.user.id}`}>
-            <span>{currentUser?.user.username}</span>
-          </Link>
+
           {currentUser ? (
-            <span
-              onClick={() => {
-                logout();
-                handleLogout();
-              }}
-            >
-              Se déconnecter
-            </span>
+            <div>
+              <Link className="link" to={`/users/${currentUser.user.id}`}>
+                <span>{currentUser?.user.username} </span>
+              </Link>
+              <span
+                onClick={() => {
+                  logout();
+                  handleLogout();
+                }}
+              >
+                Se déconnecter
+              </span>
+            </div>
           ) : (
             <Link className="link" to="/login">
               Login
             </Link>
           )}
           <span className="publish">
-            <Link className="link" to="/write">
-              Publier
-            </Link>
+            {currentUser ? (
+              <Link className="link" to="/write">
+                Publier
+              </Link>
+            ) : (
+              <Link className="link" to="/login">
+                Publier
+              </Link>
+            )}
           </span>
         </div>
       </div>

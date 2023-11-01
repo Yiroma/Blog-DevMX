@@ -1,6 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import PropTypes from "prop-types";
 
 function Menu({ cat, currentPostId }) {
   const [posts, setPosts] = useState([]);
@@ -8,10 +9,10 @@ function Menu({ cat, currentPostId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/?cat=${cat}`);
-        setPosts(response.data);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/?cat=${cat}`);
+        setPosts(res.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     fetchData();
@@ -29,7 +30,7 @@ function Menu({ cat, currentPostId }) {
             alt={post.title}
           />
           <h2>{post.title}</h2>
-          <Link className="link" to={`/post/${post.id}`}>
+          <Link className="link" to={`/posts/${post.id}`}>
             <button>{`Voir l'article`}</button>
           </Link>
         </div>
@@ -37,5 +38,10 @@ function Menu({ cat, currentPostId }) {
     </div>
   );
 }
+
+Menu.propTypes = {
+  cat: PropTypes.string,
+  currentPostId: PropTypes.string,
+};
 
 export default Menu;

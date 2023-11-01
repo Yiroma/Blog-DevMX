@@ -1,70 +1,34 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import NavLayout from "./layouts/NavLayout";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Single from "./pages/Single";
+import User from "./pages/User";
 import Write from "./pages/Write";
 import WrongPage from "./pages/WrongPage";
 
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-
 import "./styles/index.scss";
-import User from "./pages/User";
-
-function Layout() {
-  return (
-    <>
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </>
-  );
-}
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/posts/:id",
-        element: <Single />,
-      },
-      {
-        path: "/write",
-        element: <Write />,
-      },
-      {
-        path: "/users/:id",
-        element: <User />,
-      },
-    ],
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "*",
-    element: <WrongPage />,
-  },
-]);
 
 function App() {
   return (
     <div className="app">
       <div className="container">
-        <RouterProvider router={router} />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<NavLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/posts/:id" element={<Single />} />
+              <Route path="/write" element={<Write />} />
+              <Route path="/users/:id" element={<User />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/*" element={<WrongPage />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </div>
   );
