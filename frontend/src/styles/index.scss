@@ -18,7 +18,7 @@ $lightGray: #ccc;
   justify-content: center;
 
   .container {
-    width: 1024px;
+    width: clamp(320px, 100%, 1024px);
 
     .link {
       text-decoration: none;
@@ -409,5 +409,178 @@ $lightGray: #ccc;
         }
       }
     }
+
+    // USER PAGE (responsive in progress)
+    .userPageContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      h2 {
+        margin-top: 1.2rem;
+        color:$blue;
+        text-align: center;
+
+      }
+      
+      .userImgAndDetails {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+        width: clamp(300px, 80%, 768px);
+        border: 1px solid lightgray;
+        border-radius: 10px;
+          img {
+            width: 124px;
+            height: auto;
+            border-radius: 10px 0 0 10px;
+          }
+        
+        .userDetails {
+          display: flex;
+          flex-direction: column;
+          margin-left: 8px;
+          width: 100%;
+          h3 {
+            text-align: left;
+          }
+          p {
+            text-align: left;
+          }
+          button {
+            width: 95%;
+            margin-top: 32px;
+            border: 1px solid $blue;
+            border-radius: 5px;
+            background: white;
+            img {
+              width: 24px;
+            }
+          }
+        }
+      }
+
+      .userPostsAndDetails{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0 5px 0;
+        width: clamp(300px, 80%, 768px);
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        h3 {
+          text-align: left;
+        }
+        .userPostsDetails{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+
+          img {
+            width: 124px;
+            height: auto;
+            border-radius: 0 0 0 10px;
+          }
+          .edit {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            img {
+              width: 24px;
+            }
+          }
+        }
+      }
+
+      .otherPostsAndDetails{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0 5px 0;
+        width: clamp(300px, 80%, 768px);
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        h3 {
+          text-align: left;
+        }
+        .otherPostsDetails{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+
+          img {
+            width: 124px;
+            height: auto;
+            border-radius: 0 0 0 10px;
+          }
+          .edit {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            img {
+              width: 24px;
+            }
+          }
+        }
+      }
+
+      .otherUsersImgAndDetails {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+        width: clamp(300px, 80%, 768px);
+        border: 1px solid lightgray;
+        border-radius: 10px;
+          img {
+            width: 124px;
+            height: auto;
+            border-radius: 10px 0 0 10px;
+          }
+          .otherUsersDetails {
+            display: flex;
+            flex-direction: column;
+            margin-left: 8px;
+            width: 100%;
+            h3 {
+              text-align: left;
+            }
+            p {
+              text-align: left;
+            }
+            .btnEditDelete {
+              display: flex;
+              justify-content: space-evenly;
+              .btnEdit{
+                width: 45%;
+                margin-top: 32px;
+                border-radius: 5px;
+                background: white;
+                border: 1px solid $blue;
+                img{
+                  width: 24px;
+                }
+              }
+              .btnDelete{
+                width: 45%;
+                margin-top: 32px;
+                border-radius: 5px;
+                background: white;
+                border: 1px solid red;
+                img{
+                  width: 24px;
+                }
+              }
+            } 
+          }
+      }
+    }
+
   }
 }

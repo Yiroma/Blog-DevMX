@@ -99,18 +99,22 @@ export default function User() {
 
   return (
     <div className="userPageContainer">
-      <h1>Vos informations</h1>
+      <h2>Vos informations</h2>
       {currentUser ? (
-        <div>
+        <div className="userImgAndDetails">
           {imgLoaded && (
             <img
               src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
               alt={user.username}
             />
           )}
-
-          <h2>{user.username}</h2>
-          <p>Email: {user.email}</p>
+          <div className="userDetails">
+            <h3>{user.username}</h3>
+            <p>{user.email}</p>
+            <button type="button">
+              <img src={Edit} alt="edit" />
+            </button>
+          </div>
         </div>
       ) : (
         <p>Veuillez vous connecter pour accéder à votre profil.</p>
@@ -118,63 +122,76 @@ export default function User() {
 
       <h2>Vos articles</h2>
       {createdPosts.map((post) => (
-        <div key={post.id}>
-          <img
-            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
-            alt={post.title}
-          />
+        <div className="userPostsAndDetails" key={post.id}>
           <h3>{post.title}</h3>
-          <div className="edit">
-            <Link to={`/write?edit=${post.id}`} state={post}>
-              <img src={Edit} alt="edit" />
-            </Link>
-            <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
-            {postIdToDelete && (
-              <div>
-                <p>Voulez-vous vraiment supprimer ce post ?</p>
-                <button onClick={confirmDelete}>Confirmer la suppression</button>
-              </div>
-            )}
+          <div className="userPostsDetails">
+            <img
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
+              alt={post.title}
+            />
+            <div className="edit">
+              <Link to={`/write?edit=${post.id}`} state={post}>
+                <img src={Edit} alt="edit" />
+              </Link>
+              <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
+              {postIdToDelete && (
+                <div>
+                  <p>Voulez-vous vraiment supprimer ce post ?</p>
+                  <button onClick={confirmDelete}>Confirmer la suppression</button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ))}
 
-      <h2>Articles des autres utilisateurs</h2>
+      <h2>Articles des utilisateurs</h2>
       {otherUserPosts.map((post) => (
-        <div key={post.id}>
-          <img
-            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
-            alt={post.title}
-          />
+        <div className="otherPostsAndDetails" key={post.id}>
           <h3>{post.title}</h3>
-          <div className="edit">
-            <Link to={`/write?edit=${post.id}`} state={post}>
-              <img src={Edit} alt="edit" />
-            </Link>
-            <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
-            {postIdToDelete && (
-              <div>
-                <p>Voulez-vous vraiment supprimer ce post ?</p>
-                <button onClick={confirmDelete}>Confirmer la suppression</button>
-              </div>
-            )}
+          <div className="otherPostsDetails">
+            <img
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
+              alt={post.title}
+            />
+            <div className="edit">
+              <Link to={`/write?edit=${post.id}`} state={post}>
+                <img src={Edit} alt="edit" />
+              </Link>
+              <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
+              {postIdToDelete && (
+                <div>
+                  <p>supprimer ce post ?</p>
+                  <button onClick={confirmDelete}>Confirmer la suppression</button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ))}
 
       <h2>Liste des utilisateurs</h2>
-      <ul>
-        {allUsers.map((user) => (
-          // Afficher la liste des utilisateurs
-          <li key={user.id}>
-            <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
-              alt={user.username}
-            />
-            <span>{user.username}</span>
-          </li>
-        ))}
-      </ul>
+
+      {allUsers.map((user) => (
+        <div className="otherUsersImgAndDetails" key={user.id}>
+          <img
+            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+            alt={user.username}
+          />
+          <div className="otherUsersDetails">
+            <h3>{user.username}</h3>
+            <p>{user.email}</p>
+            <div className="btnEditDelete">
+              <button className="btnEdit" type="button">
+                <img src={Edit} alt="edit" />
+              </button>
+              <button className="btnDelete" type="button">
+                <img src={Delete} alt="delete" />
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
