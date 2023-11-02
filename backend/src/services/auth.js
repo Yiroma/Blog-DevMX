@@ -37,11 +37,12 @@ const verifyPassword = (req, res) => {
         delete req.user.hashedPassword;
 
         res
-          .cookie("access_token", token, {
-            httpOnly: true,
-          })
           .status(200)
-          .json({ token, user: req.user });
+          // .cookie("access_token", token, {
+          //   httpOnly: false,
+          //   expires: new Date(Date.now() + 1000 * 60 * 60),
+          // })
+          .send({ token, user: req.user });
       } else {
         res.status(401).json("Les informations sont invalides. ");
       }
@@ -52,4 +53,48 @@ const verifyPassword = (req, res) => {
     });
 };
 
-module.exports = { hashPassword, verifyPassword };
+const verifyToken = (req, res, next) => {
+  if (req.cookies) {
+    jwt.verify(
+      req.cookies.access_token,
+      process.env.JWT_SECRET,
+      (err, decode) => {
+        if (err) {
+          res.status(401).send("connectez vous pour acceder au site");
+        } else {
+          req.access_token = decode;
+          next();
+        }
+      }
+    );
+  } else {
+    res.status(401).send("email ou mot de passe incorrect");
+  }
+
+  // try {
+  //   const authorizationHeader = req.get("Authorization");
+
+  //   if (authorizationHeader == null) {
+  //     throw new Error("Authorization header is missing");
+  //   }
+
+  //   const [type, token] = authorizationHeader.split(" ");
+
+  //   if (type !== "Bearer") {
+  //     throw new Error("Authorization header has not the 'Bearer' type");
+  //   }
+
+  //   req.payload = jwt.verify(token, process.env.JWT_SECRET);
+
+  //   next();
+  // } catch (err) {
+  //   console.error(err);
+  //   res.sendStatus(401);
+  // }
+};
+
+module.exports = {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+};

@@ -11,7 +11,9 @@ export default function User() {
   const { currentUser } = useContext(AuthContext);
 
   const [user, setUser] = useState({});
+  const [allUsers, setAllUsers] = useState([]);
   const [createdPosts, setCreatedPosts] = useState([]);
+  const [otherUserPosts, setOtherUserPosts] = useState([]);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [imageToDelete, setImageToDelete] = useState(null);
@@ -24,6 +26,10 @@ export default function User() {
         });
         const userPosts = res.data.filter((post) => post.user_id === currentUser.user.id);
         setCreatedPosts(userPosts);
+
+        // Filtrer les articles des autres utilisateurs
+        const otherPosts = res.data.filter((post) => post.user_id !== currentUser.user.id);
+        setOtherUserPosts(otherPosts);
       } catch (err) {
         console.error(err);
       }
@@ -48,6 +54,20 @@ export default function User() {
     };
     fetchUserData();
   }, [currentUser.user.id]);
+
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/users`, {
+          withCredentials: true,
+        });
+        setAllUsers(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchAllUsers();
+  }, []);
 
   const handleDelete = (postId, imgName) => {
     setPostIdToDelete(postId);
@@ -118,6 +138,43 @@ export default function User() {
           </div>
         </div>
       ))}
+
+      <h2>Articles des autres utilisateurs</h2>
+      {otherUserPosts.map((post) => (
+        <div key={post.id}>
+          <img
+            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
+            alt={post.title}
+          />
+          <h3>{post.title}</h3>
+          <div className="edit">
+            <Link to={`/write?edit=${post.id}`} state={post}>
+              <img src={Edit} alt="edit" />
+            </Link>
+            <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
+            {postIdToDelete && (
+              <div>
+                <p>Voulez-vous vraiment supprimer ce post ?</p>
+                <button onClick={confirmDelete}>Confirmer la suppression</button>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+
+      <h2>Liste des utilisateurs</h2>
+      <ul>
+        {allUsers.map((user) => (
+          // Afficher la liste des utilisateurs
+          <li key={user.id}>
+            <img
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+              alt={user.username}
+            />
+            <span>{user.username}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

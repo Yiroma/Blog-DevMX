@@ -38,11 +38,9 @@ export default function Write() {
       const formData = new FormData();
       formData.append("file", inputRef.current.files[0]);
 
-      const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/upload`,
-        { withCredentials: true },
-        formData
-      );
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData, {
+        withCredentials: true,
+      });
       if (res.status === 201) {
         if (state) {
           await axios.put(
@@ -118,8 +116,8 @@ export default function Write() {
             <form encType="multipart/form-data" onSubmit={handleSubmit}>
               <input
                 type="file"
-                ref={inputRef}
                 name="file"
+                ref={inputRef}
                 id="file"
                 onChange={handleFileChange}
                 accept=".jpg, .png, .gif"

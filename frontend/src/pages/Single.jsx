@@ -75,11 +75,6 @@ export default function Single() {
     }
   };
 
-  const getText = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
-  };
-
   return (
     <div className="single">
       <div className="content">
@@ -99,7 +94,7 @@ export default function Single() {
               <span>{user.username}</span>
               <p>Publié le {formattedDate}</p>
             </div>
-            {currentUser.user.id === post.user_id && (
+            {currentUser.user && currentUser.user.id === 1 && (
               <div className="edit">
                 <Link to={`/write?edit=${post.id}`} state={post}>
                   <img src={Edit} alt="edit" />
@@ -122,7 +117,7 @@ export default function Single() {
         )}
 
         <h1>{post.title}</h1>
-        {getText(post.desc)}
+        <div dangerouslySetInnerHTML={{ __html: post.desc }}></div>
       </div>
       <Menu cat={post.cat} currentPostId={postId} />
     </div>

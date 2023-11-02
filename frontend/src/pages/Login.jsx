@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { Slide, ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 import { AuthContext } from "../context/authContext";
@@ -32,7 +31,9 @@ export default function Login() {
       if (data.token) {
         Cookies.set("access_token", data.token, { expires: 1 / 24 });
 
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       } else {
         setError("Erreur d'identification");
       }
