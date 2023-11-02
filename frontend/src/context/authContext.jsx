@@ -1,10 +1,18 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthContext.Provider");
+  }
+  return context;
+};
 
 export const AuthContextProvider = ({ children }) => {
   const storedUser = localStorage.getItem("user");
@@ -25,18 +33,12 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const logout = async (inputs) => {
-    try {
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/logout`, inputs);
+  const logout = () => {
+    Cookies.remove("access_token");
 
-      localStorage.removeItem("user");
+    setCurrentUser(null);
 
-      Cookies.remove("access_token");
-
-      setCurrentUser(null);
-    } catch (error) {
-      console.error(error);
-    }
+    localStorage.removeItem("user");
   };
 
   useEffect(() => {

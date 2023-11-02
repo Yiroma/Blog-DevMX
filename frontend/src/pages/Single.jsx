@@ -28,8 +28,10 @@ export default function Single() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`);
-        setPost(response.data);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`, {
+          withCredentials: true,
+        });
+        setPost(res.data);
       } catch (err) {
         console.error(err);
       }
@@ -38,19 +40,26 @@ export default function Single() {
   }, [postId]);
 
   useEffect(() => {
-    if (post.user_id) {
-      axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/users/${post.user_id}`)
-        .then((res) => {
+    const fetchUserData = async () => {
+      if (post.user_id) {
+        try {
+          const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/users/${post.user_id}`, {
+            withCredentials: true,
+          });
           setUser(res.data);
-        })
-        .catch((err) => console.error(err));
-    }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    };
+    fetchUserData();
   }, [post]);
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`);
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`, {
+        withCredentials: true,
+      });
 
       const deleteImgRes = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/deleteImg/${post?.img}`

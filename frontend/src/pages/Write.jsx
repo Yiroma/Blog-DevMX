@@ -38,26 +38,38 @@ export default function Write() {
       const formData = new FormData();
       formData.append("file", inputRef.current.files[0]);
 
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData);
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/upload`,
+        { withCredentials: true },
+        formData
+      );
       if (res.status === 201) {
         if (state) {
-          await axios.put(`${import.meta.env.VITE_BACKEND_URL}/posts/${state.id}`, {
-            title,
-            desc: value,
-            cat,
-            img: res.data,
-            date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
-            user_id: currentUser?.user?.id,
-          });
+          await axios.put(
+            `${import.meta.env.VITE_BACKEND_URL}/posts/${state.id}`,
+            {
+              title,
+              desc: value,
+              cat,
+              img: res.data,
+              date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
+              user_id: currentUser?.user?.id,
+            },
+            { withCredentials: true }
+          );
         } else {
-          await axios.post(`${import.meta.env.VITE_BACKEND_URL}/posts/`, {
-            title,
-            desc: value,
-            cat,
-            img: res.data,
-            date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
-            user_id: currentUser?.user?.id,
-          });
+          await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/posts/`,
+            {
+              title,
+              desc: value,
+              cat,
+              img: res.data,
+              date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
+              user_id: currentUser?.user?.id,
+            },
+            { withCredentials: true }
+          );
         }
         navigate("/");
       }
