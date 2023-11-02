@@ -11,7 +11,9 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts?cat=${cat}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts?cat=${cat}`, {
+          withCredentials: true,
+        });
         const sortedPosts = res.data.sort((a, b) => new Date(b.date) - new Date(a.date));
         setPosts(sortedPosts);
       } catch (err) {

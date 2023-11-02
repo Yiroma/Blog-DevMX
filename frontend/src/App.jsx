@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import ProtectedLayout from "./layouts/ProtectedLayout";
 import NavLayout from "./layouts/NavLayout";
 
 import Home from "./pages/Home";
@@ -18,15 +19,20 @@ function App() {
       <div className="container">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<NavLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/posts/:id" element={<Single />} />
-              <Route path="/write" element={<Write />} />
-              <Route path="/users/:id" element={<User />} />
-            </Route>
+            {/* PUBLIC ROUTES */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/*" element={<WrongPage />} />
+
+            {/* PRIVATE ROUTES */}
+            <Route element={<ProtectedLayout />}>
+              <Route path="/" element={<NavLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/posts/:id" element={<Single />} />
+                <Route path="/write" element={<Write />} />
+                <Route path="/users/:id" element={<User />} />
+              </Route>
+            </Route>
           </Routes>
         </BrowserRouter>
       </div>

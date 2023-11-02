@@ -12,26 +12,41 @@ export default function User() {
 
   const [user, setUser] = useState({});
   const [createdPosts, setCreatedPosts] = useState([]);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [imageToDelete, setImageToDelete] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/posts`)
-      .then((res) => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts`, {
+          withCredentials: true,
+        });
         const userPosts = res.data.filter((post) => post.user_id === currentUser.user.id);
         setCreatedPosts(userPosts);
-      })
-      .catch((err) => console.error(err));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
   }, [currentUser]);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/users/${currentUser.user.id}`)
-      .then((res) => {
+    const fetchUserData = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/users/${currentUser.user.id}`,
+          {
+            withCredentials: true,
+          }
+        );
         setUser(res.data);
-      })
-      .catch((err) => console.error(err));
+        setImgLoaded(true);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUserData();
   }, [currentUser.user.id]);
 
   const handleDelete = (postId, imgName) => {
@@ -42,10 +57,14 @@ export default function User() {
   const confirmDelete = async () => {
     if (postIdToDelete) {
       try {
-        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postIdToDelete}`);
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postIdToDelete}`, {
+          withCredentials: true,
+        });
 
         if (imageToDelete) {
-          await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteImg/${imageToDelete}`);
+          await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteImg/${imageToDelete}`, {
+            withCredentials: true,
+          });
         }
 
         setCreatedPosts((prevPosts) => prevPosts.filter((post) => post.id !== postIdToDelete));
@@ -63,10 +82,13 @@ export default function User() {
       <h1>Vos informations</h1>
       {currentUser ? (
         <div>
-          <img
-            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
-            alt={user.username}
-          />
+          {imgLoaded && (
+            <img
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+              alt={user.username}
+            />
+          )}
+
           <h2>{user.username}</h2>
           <p>Email: {user.email}</p>
         </div>

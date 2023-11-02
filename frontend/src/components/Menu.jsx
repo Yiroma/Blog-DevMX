@@ -9,7 +9,9 @@ function Menu({ cat, currentPostId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/?cat=${cat}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/?cat=${cat}`, {
+          withCredentials: true,
+        });
         setPosts(res.data);
       } catch (err) {
         console.error(err);
