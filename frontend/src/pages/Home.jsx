@@ -38,7 +38,7 @@ export default function Home() {
               <Link className="link" to={`/posts/${post.id}`}>
                 <h1>{post.title}</h1>
               </Link>
-              <div dangerouslySetInnerHTML={{ __html: post.desc }}></div>
+              <div className="paragraph" dangerouslySetInnerHTML={{ __html: post.desc }}></div>
               <Link className="link" to={`/posts/${post.id}`}>
                 <button>Read More</button>
               </Link>

@@ -27,7 +27,6 @@ export default function User() {
         const userPosts = res.data.filter((post) => post.user_id === currentUser.user.id);
         setCreatedPosts(userPosts);
 
-        // Filtrer les articles des autres utilisateurs
         const otherPosts = res.data.filter((post) => post.user_id !== currentUser.user.id);
         setOtherUserPosts(otherPosts);
       } catch (err) {
@@ -145,53 +144,61 @@ export default function User() {
         </div>
       ))}
 
-      <h2>Articles des utilisateurs</h2>
-      {otherUserPosts.map((post) => (
-        <div className="otherPostsAndDetails" key={post.id}>
-          <h3>{post.title}</h3>
-          <div className="otherPostsDetails">
-            <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
-              alt={post.title}
-            />
-            <div className="edit">
-              <Link to={`/write?edit=${post.id}`} state={post}>
-                <img src={Edit} alt="edit" />
-              </Link>
-              <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
-              {postIdToDelete && (
-                <div>
-                  <p>supprimer ce post ?</p>
-                  <button onClick={confirmDelete}>Confirmer la suppression</button>
+      {currentUser.user.id === 1 && (
+        <div className="otherPostsContainer">
+          <h2>Articles des utilisateurs</h2>
+          {otherUserPosts.map((post) => (
+            <div className="otherPostsAndDetails" key={post.id}>
+              <h3>{post.title}</h3>
+              <div className="otherPostsDetails">
+                <img
+                  src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
+                  alt={post.title}
+                />
+                <div className="edit">
+                  <Link to={`/write?edit=${post.id}`} state={post}>
+                    <img src={Edit} alt="edit" />
+                  </Link>
+                  <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
+                  {postIdToDelete && (
+                    <div>
+                      <p>supprimer ce post ?</p>
+                      <button onClick={confirmDelete}>Confirmer la suppression</button>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      )}
 
-      <h2>Liste des utilisateurs</h2>
+      {currentUser.user.id === 1 && (
+        <div className="otherUsersContainer">
+          <h2>Liste des utilisateurs</h2>
 
-      {allUsers.map((user) => (
-        <div className="otherUsersImgAndDetails" key={user.id}>
-          <img
-            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
-            alt={user.username}
-          />
-          <div className="otherUsersDetails">
-            <h3>{user.username}</h3>
-            <p>{user.email}</p>
-            <div className="btnEditDelete">
-              <button className="btnEdit" type="button">
-                <img src={Edit} alt="edit" />
-              </button>
-              <button className="btnDelete" type="button">
-                <img src={Delete} alt="delete" />
-              </button>
+          {allUsers.map((user) => (
+            <div className="otherUsersImgAndDetails" key={user.id}>
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+                alt={user.username}
+              />
+              <div className="otherUsersDetails">
+                <h3>{user.username}</h3>
+                <p>{user.email}</p>
+                <div className="btnEditDelete">
+                  <button className="btnEdit" type="button">
+                    <img src={Edit} alt="edit" />
+                  </button>
+                  <button className="btnDelete" type="button">
+                    <img src={Delete} alt="delete" />
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
