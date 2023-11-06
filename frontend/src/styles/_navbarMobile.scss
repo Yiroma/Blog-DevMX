@@ -1,0 +1,129 @@
+.navMobileContainer {
+  display: flex;
+  text-decoration: none;
+
+  #burgerToggle {
+    display: none;
+  }
+  .menuBtnContainer {
+    cursor: pointer;
+    width: 30px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .menuBtn {
+      margin: 20px 20px 0 0;
+    }
+    .menuBtn,
+    .menuBtn::before,
+    .menuBtn::after {
+      display: block;
+      background-color: #000;
+      position: absolute;
+      height: 4px;
+      width: 30px;
+      transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 2px;
+      top: 0;
+      right: 0;
+    }
+    .menuBtn::before {
+      content: "";
+      margin-top: -8px;
+    }
+    .menuBtn::after {
+      content: "";
+      margin-top: 8px;
+    }
+  }
+  #burgerToggle:checked + .menuBtnContainer .menuBtn::before {
+    margin-top: 0;
+    transform: rotate(405deg);
+  }
+  #burgerToggle:checked + .menuBtnContainer .menuBtn {
+    background: rgba(255, 255, 255, 0);
+  }
+  #burgerToggle:checked + .menuBtnContainer .menuBtn::after {
+    margin-top: 0;
+    transform: rotate(-405deg);
+  }
+  .menu {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 50px;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    li {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0;
+      padding: 0.5em 0;
+      width: 100%;
+      color: white;
+      background-color: #222;
+      &:not(:last-child) {
+        border-bottom: 1px solid #444;
+      }
+      img {
+        width: 50px;
+        height: 50px;
+      }
+      .link {
+        display: none;
+      }
+      span {
+        display: none;
+      }
+    }
+  }
+  #burgerToggle ~ .menu li {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    img {
+      display: none;
+    }
+    .link {
+      display: none;
+    }
+  }
+  #burgerToggle:checked ~ .menu li {
+    border: 1px solid #333;
+    height: 5rem;
+    padding-left: 2rem;
+    transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    background: $blue;
+    img {
+      display: block;
+      border-radius: 10%;
+    }
+    .link {
+      display: block;
+    }
+    .username {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      .logout {
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .navMobileContainer {
+    display: none;
+  }
+}

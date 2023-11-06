@@ -1,4 +1,18 @@
 .navbar {
+  .container {
+    .logo {
+      img {
+        height: 50px;
+      }
+    }
+    .linkUserPublishContainer {
+      display: none;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .navbar {
     .container {
       padding: 10px 0px;
       display: flex;
@@ -9,7 +23,7 @@
           height: 50px;
         }
       }
-      .linkUserPublishContainer{
+      .linkUserPublishContainer {
         display: flex;
         flex-direction: row;
         .links {
@@ -23,68 +37,64 @@
             font-weight: 300;
           }
         }
-          .userContainer {
+        .userContainer {
+          display: flex;
+          margin-right: 15px;
+          border: 1px solid $lightGray;
+          border-radius: 8px;
+          .userAndLog {
             display: flex;
-            margin-right: 15px;
-            border: 1px solid $lightGray;
-            border-radius: 8px;
-            .userAndLog{
-              display: flex;
-              flex-direction: column;
-              align-items: flex-end;
-              
-              .username {
-                cursor: pointer;
-                padding: 0 5px 0 0;
-                font-weight: 500;
-              }
-              
-              .log {
-                cursor: pointer;
-                padding: 0 5px 0 5px;
-                font-size: 12px;
-                border-top: 1px solid $lightGray;
-              }
+            flex-direction: column;
+            align-items: flex-end;
 
+            .username {
+              cursor: pointer;
+              padding: 0 5px 0 0;
+              font-weight: 500;
             }
-            
-            
-            .userImg{
-              width: 36px;
-              height: 36px;
-              a{
-                
-                img{
-                  width: 36px;
-                  height: 36px;
-                  border-radius: 0 8px 8px 0;
-  
-                }
-              }
+
+            .log {
+              cursor: pointer;
+              padding: 0 5px 0 5px;
+              font-size: 12px;
+              border-top: 1px solid $lightGray;
             }
           }
 
-          .publish {
-            background: $blue;
-            padding: 8px 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: $white;
-            font-weight: 600;
-            border: 1px solid $white;
-            transition: 0.3s ease;
-
-            &:hover {
-              color: $blue;
-              background-color: $lightBlue;
-              border: 1px solid $blue;
-              box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
-              transform: scale(1.05);
+          .userImg {
+            width: 36px;
+            height: 36px;
+            a {
+              img {
+                width: 36px;
+                height: 36px;
+                border-radius: 0 8px 8px 0;
+              }
             }
           }
+        }
+
+        .publish {
+          background: $blue;
+          padding: 8px 20px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $white;
+          font-weight: 600;
+          border: 1px solid $white;
+          transition: 0.3s ease;
+
+          &:hover {
+            color: $blue;
+            background-color: $lightBlue;
+            border: 1px solid $blue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+          }
+        }
       }
-      
     }
   }
+}
