@@ -11,7 +11,7 @@ import User from "./pages/User";
 import Write from "./pages/Write";
 import WrongPage from "./pages/WrongPage";
 
-import "./styles/index.scss";
+import "./index.scss";
 
 function App() {
   return (
