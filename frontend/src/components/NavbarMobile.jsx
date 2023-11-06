@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/authContext";
@@ -10,58 +10,75 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  const handleToggleMobileNav = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
+
   const handleLogout = () => {
     navigate("/login");
   };
 
   return (
-    <div className="navMobileContainer">
-      <input id="burgerToggle" type="checkbox" />
+    <div className={`navMobileContainer ${isMobileNavOpen ? "open" : ""}`}>
+      <input
+        id="burgerToggle"
+        type="checkbox"
+        checked={isMobileNavOpen}
+        onChange={handleToggleMobileNav}
+      />
       <label className="menuBtnContainer" htmlFor="burgerToggle">
         <div className="menuBtn"></div>
       </label>
       <ul className="menu">
         <li>
-          <Link className="link" to="/">
+          <Link className="link" to="/" onClick={handleToggleMobileNav}>
             Accueil
           </Link>
         </li>
 
         <li>
-          <Link className="link" to="/?cat=actu">
+          <Link className="link" to="/?cat=actu" onClick={handleToggleMobileNav}>
             Actu
           </Link>
         </li>
 
         <li>
-          <Link className="link" to="/?cat=event">
+          <Link className="link" to="/?cat=event" onClick={handleToggleMobileNav}>
             Evènement
           </Link>
         </li>
 
         <li>
-          <Link className="link" to="/?cat=tips">
+          <Link className="link" to="/?cat=tips" onClick={handleToggleMobileNav}>
             Tips & Astuces
           </Link>
         </li>
 
         <li>
-          <Link className="link" to="/?cat=job">
+          <Link className="link" to="/?cat=job" onClick={handleToggleMobileNav}>
             Job
           </Link>
         </li>
 
         <li>
           <div className="username">
-            <Link className="link" to={`/users/${currentUser.user.id}`}>
+            <Link
+              className="link"
+              to={`/users/${currentUser.user.id}`}
+              onClick={handleToggleMobileNav}
+            >
               {currentUser?.user.username}
             </Link>
 
-            <Link className="link" to={`/users/${currentUser.user.id}`}>
+            <Link
+              className="link"
+              to={`/users/${currentUser.user.id}`}
+              onClick={handleToggleMobileNav}
+            >
               <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
-                  currentUser.user.img
-                }`}
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${currentUser.user.img}`}
                 alt={currentUser.username}
               />
             </Link>
@@ -79,7 +96,7 @@ const Navbar = () => {
         </li>
 
         <li className="publish">
-          <Link className="link " to="/write">
+          <Link className="link " to="/write" onClick={handleToggleMobileNav}>
             Publier
           </Link>
         </li>
