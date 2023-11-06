@@ -1,56 +1,56 @@
 .home {
   .posts {
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
-    gap: 150px;
+    width: 90%;
+    margin: 3rem auto;
+    gap: 5rem;
 
     .post {
       display: flex;
-      gap: 100px;
-
-      &:nth-child(2n + 1) {
-        flex-direction: row-reverse;
-      }
+      flex-direction: column;
+      gap: 2rem;
 
       .img {
-        flex: 2;
         position: relative;
+        width: 90%;
+        margin: 0 auto;
 
         &::after {
           content: "";
-          width: 100%;
+          width: clamp(280px, 100%, 600px);
           height: 100%;
-          // background-color: $blue;
+          aspect-ratio: 16/9;
           border: 2px solid $blue;
+          border-radius: 16px;
           position: absolute;
-          top: 20px;
+          top: 15px;
           left: -20px;
           z-index: -1;
         }
 
         img {
-          // width: 100%;
-          width: clamp(280px, 100%, 400px);
+          width: clamp(280px, 100%, 600px);
           height: auto;
-          aspect-ratio: 4/3;
-          // max-height: 400px;
+          aspect-ratio: 16/9;
           object-fit: cover;
+          border-radius: 16px;
         }
       }
 
       .content {
-        flex: 3;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        margin: 0 auto;
 
         h1 {
-          font-size: 48px;
+          font-size: 2rem;
         }
 
         .paragraph {
-          max-height: 9em;
+          width: clamp(280px, 100%, 600px);
+          max-height: 9rem;
           overflow: hidden;
           text-overflow: ellipsis;
           font-size: 1rem;
@@ -59,16 +59,93 @@
         button {
           width: max-content;
           padding: 10px 20px;
-          border: none;
           cursor: pointer;
           background-color: $white;
           border: 1px solid $blue;
+          border-radius: 8px;
           color: $blue;
 
           &:hover {
             border: 1px solid $white;
             background-color: $lightBlue;
             color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .home {
+    .posts {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 150px;
+
+      .post {
+        display: flex;
+        flex-direction: row;
+        gap: 6.25rem;
+        &:nth-child(2n + 1) {
+          flex-direction: row-reverse;
+        }
+
+        .img {
+          flex: 2;
+          position: relative;
+          
+          &::after {
+            content: "";
+            width: clamp(280px, 100%, 400px);
+            height: auto;
+            aspect-ratio: 4/3;
+            border: 2px solid $blue;
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            z-index: -1;
+          }
+
+          img {
+            width: clamp(280px, 100%, 400px);
+            height: auto;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+          }
+        }
+
+        .content {
+          flex: 3;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          h1 {
+            font-size: 2.6rem;
+          }
+
+          .paragraph {
+            max-height: 9em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1rem;
+          }
+
+          button {
+            width: max-content;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: $white;
+            border: 1px solid $blue;
+            color: $blue;
+
+            &:hover {
+              border: 1px solid $white;
+              background-color: $lightBlue;
+              color: black;
+            }
           }
         }
       }
