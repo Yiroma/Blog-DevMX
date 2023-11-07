@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Logo from "../assets/Logo-devmx.svg";
+import MixyRegister from "../assets/mixy/mixy-register.webp";
 
 export default function Register() {
   const [inputs, setInputs] = useState({
@@ -32,8 +33,9 @@ export default function Register() {
   return (
     <div className="login-container">
       <form>
-        <img src={Logo} alt="devMX" />
-        <h1>Enregistrez-vous</h1>
+        <img className="logoMixyRegister" src={MixyRegister} alt="Mixy mascotte" />
+        <img className="logoDevMX" src={Logo} alt="devMX" />
+        <h2>Enregistrez-vous</h2>
         <label htmlFor="userNameInput">Pseudo</label>
         <input
           required
@@ -66,7 +68,9 @@ export default function Register() {
         </button>
         {err && <p>{err}</p>}
         <span>
-          Vous avez déjà compte ?<Link to="/login"> Identifiez-vous</Link>
+          Vous avez déjà compte ?
+          <br />
+          <Link to="/login"> Identifiez-vous</Link>
         </span>
       </form>
     </div>
