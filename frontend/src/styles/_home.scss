@@ -66,9 +66,14 @@
           color: $blue;
 
           &:hover {
-            border: 1px solid $white;
-            background-color: $lightBlue;
-            color: black;
+            background-color: $blue;
+            color: white;
+            font-weight: 500;
+            transform: scale(1.1);
+          }
+
+          &:active {
+            transform: scale(0.8);
           }
         }
       }
@@ -124,6 +129,7 @@
 
           h1 {
             font-size: 2.6rem;
+            margin: 0;
           }
 
           .paragraph {
@@ -140,11 +146,17 @@
             background-color: $white;
             border: 1px solid $blue;
             color: $blue;
+            transition: 0.3s ease;
 
             &:hover {
-              border: 1px solid $white;
-              background-color: $lightBlue;
-              color: black;
+              background-color: $blue;
+              color: white;
+              font-weight: 500;
+              transform: scale(1.1);
+            }
+
+            &:active {
+              transform: scale(0.8);
             }
           }
         }

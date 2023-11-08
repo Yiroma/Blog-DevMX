@@ -9,17 +9,19 @@
 @import "./styles/write";
 @import "./styles/userPage";
 
+import 
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: $fontFamily;
 }
 
 .app {
   display: flex;
   justify-content: center;
-
+  font-family: $fontFamily;
+  
   .container {
     width: clamp(320px, 100%, 1024px);
 

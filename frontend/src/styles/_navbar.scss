@@ -2,6 +2,7 @@
   .container {
     .logo {
       img {
+        margin: 10px 0 0 10px;
         height: 50px;
       }
     }
@@ -11,10 +12,9 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 795px) {
   .navbar {
     .container {
-      padding: 10px 0px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -26,10 +26,11 @@
       .linkUserPublishContainer {
         display: flex;
         flex-direction: row;
+        align-items: center;
         .links {
           display: flex;
           align-items: center;
-          margin-right: 15px;
+          margin-right: 12px;
           gap: 10px;
 
           h6 {
@@ -42,6 +43,7 @@
           margin-right: 15px;
           border: 1px solid $lightGray;
           border-radius: 8px;
+          height: 36px;
           .userAndLog {
             display: flex;
             flex-direction: column;
@@ -58,6 +60,14 @@
               padding: 0 5px 0 5px;
               font-size: 12px;
               border-top: 1px solid $lightGray;
+              transition: 0.2s ease;
+
+              &:hover {
+                background: $red;
+                color: white;
+                border-radius: 0 0 0 6px;
+                border-bottom: 1px solid $red;
+              }
             }
           }
 
@@ -85,6 +95,7 @@
           font-weight: 600;
           border: 1px solid $white;
           transition: 0.3s ease;
+          height: 20px;
 
           &:hover {
             color: $blue;
