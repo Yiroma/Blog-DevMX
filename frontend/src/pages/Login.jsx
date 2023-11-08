@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { Slide, ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 import { AuthContext } from "../context/authContext";
 
 import Logo from "../assets/Logo-devmx.svg";
+import MixyHey from "../assets/mixy/mixy-hey.webp";
 
 export default function Login() {
   const [inputs, setInputs] = useState({
@@ -32,7 +32,9 @@ export default function Login() {
       if (data.token) {
         Cookies.set("access_token", data.token, { expires: 1 / 24 });
 
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       } else {
         setError("Erreur d'identification");
       }
@@ -43,9 +45,9 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <h1>Bienvenue sur le Blog privé des DevMX</h1>
       <form>
-        <img src={Logo} alt="devMX" />
+        <img className="logoMixyHey" src={MixyHey} alt="Mixy mascotte" />
+        <img className="logoDevMX" src={Logo} alt="devMX" />
         <h2>Identifez-vous</h2>
         <label htmlFor="emailInput">Email</label>
         <input
@@ -69,6 +71,7 @@ export default function Login() {
         {err && <p>{err}</p>}
         <span>
           {`Vous n'avez pas de compte ?`}
+          <br />
           <Link to="/register"> Créer un compte</Link>
         </span>
       </form>

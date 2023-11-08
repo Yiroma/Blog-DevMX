@@ -11,7 +11,9 @@ export default function User() {
   const { currentUser } = useContext(AuthContext);
 
   const [user, setUser] = useState({});
+  const [allUsers, setAllUsers] = useState([]);
   const [createdPosts, setCreatedPosts] = useState([]);
+  const [otherUserPosts, setOtherUserPosts] = useState([]);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [imageToDelete, setImageToDelete] = useState(null);
@@ -19,11 +21,21 @@ export default function User() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts`, {
-          withCredentials: true,
-        });
-        const userPosts = res.data.filter((post) => post.user_id === currentUser.user.id);
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/posts`,
+          {
+            withCredentials: true,
+          }
+        );
+        const userPosts = res.data.filter(
+          (post) => post.user_id === currentUser.user.id
+        );
         setCreatedPosts(userPosts);
+
+        const otherPosts = res.data.filter(
+          (post) => post.user_id !== currentUser.user.id
+        );
+        setOtherUserPosts(otherPosts);
       } catch (err) {
         console.error(err);
       }
@@ -49,6 +61,23 @@ export default function User() {
     fetchUserData();
   }, [currentUser.user.id]);
 
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/users`,
+          {
+            withCredentials: true,
+          }
+        );
+        setAllUsers(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchAllUsers();
+  }, []);
+
   const handleDelete = (postId, imgName) => {
     setPostIdToDelete(postId);
     setImageToDelete(imgName);
@@ -57,17 +86,25 @@ export default function User() {
   const confirmDelete = async () => {
     if (postIdToDelete) {
       try {
-        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postIdToDelete}`, {
-          withCredentials: true,
-        });
+        await axios.delete(
+          `${import.meta.env.VITE_BACKEND_URL}/posts/${postIdToDelete}`,
+          {
+            withCredentials: true,
+          }
+        );
 
         if (imageToDelete) {
-          await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteImg/${imageToDelete}`, {
-            withCredentials: true,
-          });
+          await axios.delete(
+            `${import.meta.env.VITE_BACKEND_URL}/deleteImg/${imageToDelete}`,
+            {
+              withCredentials: true,
+            }
+          );
         }
 
-        setCreatedPosts((prevPosts) => prevPosts.filter((post) => post.id !== postIdToDelete));
+        setCreatedPosts((prevPosts) =>
+          prevPosts.filter((post) => post.id !== postIdToDelete)
+        );
 
         setPostIdToDelete(null);
         setImageToDelete(null);
@@ -79,18 +116,24 @@ export default function User() {
 
   return (
     <div className="userPageContainer">
-      <h1>Vos informations</h1>
+      <h2>Vos informations</h2>
       {currentUser ? (
-        <div>
+        <div className="userImgAndDetails">
           {imgLoaded && (
             <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
+                user.img
+              }`}
               alt={user.username}
             />
           )}
-
-          <h2>{user.username}</h2>
-          <p>Email: {user.email}</p>
+          <div className="userDetails">
+            <h3>{user.username}</h3>
+            <p>{user.email}</p>
+            <button type="button">
+              <img src={Edit} alt="edit" />
+            </button>
+          </div>
         </div>
       ) : (
         <p>Veuillez vous connecter pour accéder à votre profil.</p>
@@ -98,26 +141,102 @@ export default function User() {
 
       <h2>Vos articles</h2>
       {createdPosts.map((post) => (
-        <div key={post.id}>
-          <img
-            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
-            alt={post.title}
-          />
+        <div className="userPostsAndDetails" key={post.id}>
           <h3>{post.title}</h3>
-          <div className="edit">
-            <Link to={`/write?edit=${post.id}`} state={post}>
-              <img src={Edit} alt="edit" />
-            </Link>
-            <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
-            {postIdToDelete && (
-              <div>
-                <p>Voulez-vous vraiment supprimer ce post ?</p>
-                <button onClick={confirmDelete}>Confirmer la suppression</button>
-              </div>
-            )}
+          <div className="userPostsDetails">
+            <img
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${
+                post.img
+              }`}
+              alt={post.title}
+            />
+            <div className="edit">
+              <Link to={`/write?edit=${post.id}`} state={post}>
+                <img src={Edit} alt="edit" />
+              </Link>
+              <img
+                onClick={() => handleDelete(post.id, post.img)}
+                src={Delete}
+                alt="delete"
+              />
+              {postIdToDelete && (
+                <div>
+                  <p>Voulez-vous vraiment supprimer ce post ?</p>
+                  <button onClick={confirmDelete}>
+                    Confirmer la suppression
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ))}
+
+      {currentUser.user.id === 1 && (
+        <div className="otherPostsContainer">
+          <h2>Articles des utilisateurs</h2>
+          {otherUserPosts.map((post) => (
+            <div className="otherPostsAndDetails" key={post.id}>
+              <h3>{post.title}</h3>
+              <div className="otherPostsDetails">
+                <img
+                  src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${
+                    post.img
+                  }`}
+                  alt={post.title}
+                />
+                <div className="edit">
+                  <Link to={`/write?edit=${post.id}`} state={post}>
+                    <img src={Edit} alt="edit" />
+                  </Link>
+                  <img
+                    onClick={() => handleDelete(post.id, post.img)}
+                    src={Delete}
+                    alt="delete"
+                  />
+                  {postIdToDelete && (
+                    <div>
+                      <p>supprimer ce post ?</p>
+                      <button onClick={confirmDelete}>
+                        Confirmer la suppression
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {currentUser.user.id === 1 && (
+        <div className="otherUsersContainer">
+          <h2>Liste des utilisateurs</h2>
+
+          {allUsers.map((user) => (
+            <div className="otherUsersImgAndDetails" key={user.id}>
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
+                  user.img
+                }`}
+                alt={user.username}
+              />
+              <div className="otherUsersDetails">
+                <h3>{user.username}</h3>
+                <p>{user.email}</p>
+                <div className="btnEditDelete">
+                  <button className="btnEdit" type="button">
+                    <img src={Edit} alt="edit" />
+                  </button>
+                  <button className="btnDelete" type="button">
+                    <img src={Delete} alt="delete" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
