@@ -33,7 +33,11 @@ export default function Register() {
   return (
     <div className="login-container">
       <form>
-        <img className="logoMixyRegister" src={MixyRegister} alt="Mixy mascotte" />
+        <img
+          className="logoMixyRegister"
+          src={MixyRegister}
+          alt="Mixy mascotte"
+        />
         <img className="logoDevMX" src={Logo} alt="devMX" />
         <h2>Enregistrez-vous</h2>
         <label htmlFor="userNameInput">Pseudo</label>

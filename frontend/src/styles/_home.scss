@@ -100,7 +100,7 @@
         .img {
           flex: 2;
           position: relative;
-          
+
           &::after {
             content: "";
             width: clamp(280px, 100%, 400px);

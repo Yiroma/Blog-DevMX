@@ -17,7 +17,8 @@
     border: 1px solid lightgray;
     border-radius: 12px;
 
-    .logoMixyHey, .logoMixyRegister {
+    .logoMixyHey,
+    .logoMixyRegister {
       position: absolute;
       z-index: -1;
       width: clamp(130px, 50%, 150px);
@@ -100,9 +101,8 @@
   .login-container {
     flex-direction: row;
     height: 100vh;
-  
+
     form {
-  
       .logoMixyHey {
         width: clamp(130px, 80%, 220px);
         top: 45px;
@@ -120,7 +120,4 @@
       }
     }
   }
-
-
-
 }
