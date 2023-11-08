@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { AuthContext } from "../context/authContext";
 
 import Logo from "../assets/Logo-devmx.svg";
+import MixyHey from "../assets/mixy/mixy-hey.webp";
 
 export default function Login() {
   const [inputs, setInputs] = useState({
@@ -44,9 +45,9 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <h1>Bienvenue sur le Blog privé des DevMX</h1>
       <form>
-        <img src={Logo} alt="devMX" />
+        <img className="logoMixyHey" src={MixyHey} alt="Mixy mascotte" />
+        <img className="logoDevMX" src={Logo} alt="devMX" />
         <h2>Identifez-vous</h2>
         <label htmlFor="emailInput">Email</label>
         <input
@@ -70,6 +71,7 @@ export default function Login() {
         {err && <p>{err}</p>}
         <span>
           {`Vous n'avez pas de compte ?`}
+          <br />
           <Link to="/register"> Créer un compte</Link>
         </span>
       </form>

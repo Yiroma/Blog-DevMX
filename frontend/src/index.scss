@@ -1,0 +1,32 @@
+@import "./styles/variables";
+
+@import "./styles/login-register";
+@import "./styles/navbar";
+@import "./styles/navbarMobile";
+@import "./styles/footer";
+@import "./styles/home";
+@import "./styles/single";
+@import "./styles/write";
+@import "./styles/userPage";
+@import "./styles/wrongPage";
+
+import * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  font-family: $fontFamily;
+
+  .container {
+    width: clamp(320px, 100%, 1024px);
+
+    .link {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}

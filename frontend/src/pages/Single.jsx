@@ -28,9 +28,12 @@ export default function Single() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`,
+          {
+            withCredentials: true,
+          }
+        );
         setPost(res.data);
       } catch (err) {
         console.error(err);
@@ -43,9 +46,12 @@ export default function Single() {
     const fetchUserData = async () => {
       if (post.user_id) {
         try {
-          const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/users/${post.user_id}`, {
-            withCredentials: true,
-          });
+          const res = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/users/${post.user_id}`,
+            {
+              withCredentials: true,
+            }
+          );
           setUser(res.data);
         } catch (err) {
           console.error(err);
@@ -57,9 +63,12 @@ export default function Single() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`, {
-        withCredentials: true,
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`,
+        {
+          withCredentials: true,
+        }
+      );
 
       const deleteImgRes = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/deleteImg/${post?.img}`
@@ -79,20 +88,24 @@ export default function Single() {
     <div className="single">
       <div className="content">
         <img
-          src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post?.img}`}
+          src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${
+            post?.img
+          }`}
           alt={post?.title}
         />
         {currentUser && currentUser.user ? (
           <div className="user">
             {user.img && (
               <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
+                  user.img
+                }`}
                 alt={user.username}
               />
             )}
             <div className="info">
               <span>{user.username}</span>
-              <p>Publié le {formattedDate}</p>
+              <p className="dateInfo">Publié le {formattedDate}</p>
             </div>
             {currentUser.user && currentUser.user.id === 1 && (
               <div className="edit">
@@ -106,7 +119,9 @@ export default function Single() {
         ) : (
           <div className="user">
             <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
+                user.img
+              }`}
               alt={user.username}
             />
             <div className="info">
@@ -117,7 +132,10 @@ export default function Single() {
         )}
 
         <h1>{post.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: post.desc }}></div>
+        <div
+          className="desc"
+          dangerouslySetInnerHTML={{ __html: post.desc }}
+        ></div>
       </div>
       <Menu cat={post.cat} currentPostId={postId} />
     </div>

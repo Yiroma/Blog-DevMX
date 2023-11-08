@@ -38,9 +38,13 @@ export default function Write() {
       const formData = new FormData();
       formData.append("file", inputRef.current.files[0]);
 
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/upload`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.status === 201) {
         if (state) {
           await axios.put(
@@ -97,56 +101,18 @@ export default function Write() {
             onChange={(e) => setTitle(e.target.value)}
           />
           <div className="editorContainer">
-            <ReactQuill className="editor" theme="snow" value={value} onChange={setValue} />
+            <ReactQuill
+              className="editor"
+              theme="snow"
+              value={value}
+              onChange={setValue}
+            />
           </div>
         </div>
 
         <div className="menu">
           <div className="item">
-            <h2>Publier</h2>
-
-            <span>
-              <b>Status: </b> Brouillon
-            </span>
-
-            <span>
-              <b>Visibilité: </b> Publique
-            </span>
-
-            <form encType="multipart/form-data" onSubmit={handleSubmit}>
-              <input
-                type="file"
-                name="file"
-                ref={inputRef}
-                id="file"
-                onChange={handleFileChange}
-                accept=".jpg, .png, .gif"
-                style={{ display: "none" }}
-              />
-              <label className="uploadFile" htmlFor="file">
-                Choisir une image
-              </label>
-
-              <img
-                src={previewImage}
-                alt="prévisualisation de l'image"
-                id="previewImage"
-                style={{
-                  width: "200px",
-                  height: "130px",
-                  objectFit: "contain",
-                  borderRadius: "10px",
-                }}
-              />
-
-              <div className="buttons">
-                <button type="button">Enregistrer en brouillon</button>
-                <button type="submit">Publier</button>
-              </div>
-            </form>
-          </div>
-          <div className="item">
-            <h2>Catégories</h2>
+            <h2>Choisir une catégories</h2>
 
             <div className="cat">
               <input
@@ -195,6 +161,40 @@ export default function Write() {
               />
               <label htmlFor="job">Job</label>
             </div>
+            <br />
+            <h2>Ajouter un image</h2>
+
+            <form
+              className="previewImgContainer"
+              encType="multipart/form-data"
+              onSubmit={handleSubmit}
+            >
+              <input
+                type="file"
+                name="file"
+                ref={inputRef}
+                id="file"
+                onChange={handleFileChange}
+                accept=".jpg, .png, .gif"
+                style={{ display: "none" }}
+              />
+              <label className="uploadFile" htmlFor="file">
+                Choisir une image
+              </label>
+
+              <img
+                className="previewImg"
+                src={previewImage}
+                alt="prévisualisation de l'image"
+                id="previewImage"
+              />
+
+              <div className="buttons">
+                <button className="btnSubmit" type="submit">
+                  Publier
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

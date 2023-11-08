@@ -1,0 +1,166 @@
+.home {
+  .posts {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 3rem auto;
+    gap: 5rem;
+
+    .post {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .img {
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+
+        &::after {
+          content: "";
+          width: clamp(280px, 100%, 600px);
+          height: 100%;
+          aspect-ratio: 16/9;
+          border: 2px solid $blue;
+          border-radius: 16px;
+          position: absolute;
+          top: 15px;
+          left: -20px;
+          z-index: -1;
+        }
+
+        img {
+          width: clamp(280px, 100%, 600px);
+          height: auto;
+          aspect-ratio: 16/9;
+          object-fit: cover;
+          border-radius: 16px;
+        }
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 auto;
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .paragraph {
+          width: clamp(280px, 100%, 600px);
+          max-height: 9rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 1rem;
+        }
+
+        button {
+          width: max-content;
+          padding: 10px 20px;
+          cursor: pointer;
+          background-color: $white;
+          border: 1px solid $blue;
+          border-radius: 8px;
+          color: $blue;
+
+          &:hover {
+            background-color: $blue;
+            color: white;
+            font-weight: 500;
+            transform: scale(1.1);
+          }
+
+          &:active {
+            transform: scale(0.8);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .home {
+    .posts {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 150px;
+
+      .post {
+        display: flex;
+        flex-direction: row;
+        gap: 6.25rem;
+        &:nth-child(2n + 1) {
+          flex-direction: row-reverse;
+        }
+
+        .img {
+          flex: 2;
+          position: relative;
+
+          &::after {
+            content: "";
+            width: clamp(280px, 100%, 400px);
+            height: auto;
+            aspect-ratio: 4/3;
+            border: 2px solid $blue;
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            z-index: -1;
+          }
+
+          img {
+            width: clamp(280px, 100%, 400px);
+            height: auto;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+          }
+        }
+
+        .content {
+          flex: 3;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          h1 {
+            font-size: 2.6rem;
+            margin: 0;
+          }
+
+          .paragraph {
+            max-height: 9em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1rem;
+          }
+
+          button {
+            width: max-content;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: $white;
+            border: 1px solid $blue;
+            color: $blue;
+            transition: 0.3s ease;
+
+            &:hover {
+              background-color: $blue;
+              color: white;
+              font-weight: 500;
+              transform: scale(1.1);
+            }
+
+            &:active {
+              transform: scale(0.8);
+            }
+          }
+        }
+      }
+    }
+  }
+}

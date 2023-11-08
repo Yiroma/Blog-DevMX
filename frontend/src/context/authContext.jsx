@@ -21,7 +21,10 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, inputs);
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/login`,
+        inputs
+      );
       setCurrentUser(res.data);
 
       localStorage.setItem("user", JSON.stringify(res.data));
@@ -46,7 +49,9 @@ export const AuthContextProvider = ({ children }) => {
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
