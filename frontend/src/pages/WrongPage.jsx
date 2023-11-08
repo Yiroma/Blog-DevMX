@@ -7,11 +7,11 @@ export default function WrongPage() {
     <div className="wrongPageContainer">
       <div className="speech">
         <h1>{`Oops ! Tu t'es perdu...`}</h1>
+        <img src={MixySad} alt="Wrong page" />
         <Link to="/">
           <button type="button">{`Retour à l'accueil`}</button>
         </Link>
       </div>
-      <img src={MixySad} alt="Wrong page" />
     </div>
   );
 }
