@@ -5,7 +5,7 @@
   justify-content: center;
 
   h2 {
-    margin-top: 1.2rem;
+    margin: 50px 0 10px;
     color: $blue;
     text-align: center;
   }
@@ -14,10 +14,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 10px;
     width: clamp(300px, 80%, 768px);
     border: 1px solid lightgray;
     border-radius: 10px;
+
     img {
       width: 124px;
       height: auto;
@@ -58,7 +58,7 @@
     border: 1px solid lightgray;
     border-radius: 10px;
     h3 {
-      text-align: left;
+      margin: 5px 0 0 0;
     }
     .userPostsDetails {
       display: flex;
@@ -78,6 +78,17 @@
         img {
           width: 24px;
         }
+      }
+      .deleteAlert {
+        font-size: 0.7rem;
+      }
+
+      .btnConfirmDelete {
+        padding: 5px 10px;
+        background: $red;
+        color: white;
+        border: none;
+        border-radius: 8px;
       }
     }
   }
@@ -118,6 +129,17 @@
           img {
             width: 24px;
           }
+        }
+        .deleteAlert {
+          font-size: 0.7rem;
+        }
+
+        .btnConfirmDelete {
+          padding: 5px 10px;
+          background: $red;
+          color: white;
+          border: none;
+          border-radius: 8px;
         }
       }
     }

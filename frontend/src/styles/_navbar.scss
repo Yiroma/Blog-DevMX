@@ -27,17 +27,60 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+
         .links {
+          position: relative;
           display: flex;
           align-items: center;
           margin-right: 12px;
           gap: 10px;
 
-          h6 {
-            font-size: 16px;
-            font-weight: 300;
+          a {
+            text-decoration: none;
+            padding: 5px 0;
+            position: relative;
+            z-index: 0;
+            cursor: pointer;
+
+            &::before,
+            &::after {
+              position: absolute;
+              left: 0px;
+              width: 100%;
+              height: 2px;
+              background: $blue;
+              content: "";
+              opacity: 0;
+              transition: all 0.3s;
+            }
+
+            h6 {
+              font-size: 1rem;
+              font-weight: 300;
+            }
+          }
+
+          a::before {
+            top: 0px;
+            transform: translateY(-10px);
+          }
+
+          a::after {
+            bottom: 0px;
+            transform: translateY(10px);
+          }
+
+          a:hover::before {
+            opacity: 1;
+            transform: translateY(0px);
+          }
+
+          a:hover::after {
+            opacity: 1;
+            transform: translateY(0px);
           }
         }
+
         .userContainer {
           display: flex;
           margin-right: 15px;
@@ -85,8 +128,9 @@
         }
 
         .publish {
+          cursor: pointer;
           background: $blue;
-          padding: 8px 20px;
+          padding: 18px 20px;
           border-radius: 8px;
           display: flex;
           align-items: center;
