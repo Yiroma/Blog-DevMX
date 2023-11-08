@@ -159,15 +159,15 @@ export default function User() {
                 src={Delete}
                 alt="delete"
               />
-              {postIdToDelete && (
-                <div>
-                  <p>Voulez-vous vraiment supprimer ce post ?</p>
-                  <button onClick={confirmDelete}>
-                    Confirmer la suppression
-                  </button>
-                </div>
-              )}
             </div>
+            {postIdToDelete && (
+              <div>
+                <p className="deleteAlert">Supprimer cette article ?</p>
+                <button className="btnConfirmDelete" onClick={confirmDelete}>
+                  Supprimer
+                </button>
+              </div>
+            )}
           </div>
         </div>
       ))}
@@ -194,15 +194,18 @@ export default function User() {
                     src={Delete}
                     alt="delete"
                   />
-                  {postIdToDelete && (
-                    <div>
-                      <p>supprimer ce post ?</p>
-                      <button onClick={confirmDelete}>
-                        Confirmer la suppression
-                      </button>
-                    </div>
-                  )}
                 </div>
+                {postIdToDelete && (
+                  <div>
+                    <p className="deleteAlert">Supprimer cette article ?</p>
+                    <button
+                      className="btnConfirmDelete"
+                      onClick={confirmDelete}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))}

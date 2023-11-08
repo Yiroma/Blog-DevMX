@@ -2,6 +2,9 @@ import { useContext, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+// import toast, { toastConfig } from "react-simple-toasts";
+// import "react-simple-toasts/dist/theme/dark.css"; // choose your theme
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -9,6 +12,12 @@ import moment from "moment";
 import "moment/locale/fr";
 
 import { AuthContext } from "../context/authContext";
+
+import ModalInfo from "../components/ModalInfo";
+
+import MixyFiesta from "../assets/mixy/mixy-fiesta.webp";
+
+// toastConfig({ theme: "dark" }); // configure global toast settings, like theme
 
 export default function Write() {
   const { currentUser } = useContext(AuthContext);
@@ -26,6 +35,8 @@ export default function Write() {
       ? `${import.meta.env.VITE_BACKEND_URL}/uploads/images/${state?.img}`
       : `${import.meta.env.VITE_BACKEND_URL}/assets/default-preview.svg`
   );
+
+  const [showModal, setShowModal] = useState(false);
 
   const inputRef = useRef();
 
@@ -73,7 +84,12 @@ export default function Write() {
             { withCredentials: true }
           );
         }
-        navigate("/");
+        setShowModal(true);
+
+        setTimeout(() => {
+          setShowModal(false);
+          navigate("/");
+        }, 5000);
       }
     } catch (err) {
       console.error(err);
@@ -88,6 +104,10 @@ export default function Write() {
       const objectUrl = URL.createObjectURL(selectedFile);
       setPreviewImage(objectUrl);
     }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -190,7 +210,11 @@ export default function Write() {
               />
 
               <div className="buttons">
-                <button className="btnSubmit" type="submit">
+                <button
+                  className="btnSubmit"
+                  type="submit"
+                  // onClick={() => toast(`${MixyFiesta}Votre articles est publié !`)}
+                >
                   Publier
                 </button>
               </div>
@@ -198,6 +222,13 @@ export default function Write() {
           </div>
         </div>
       </div>
+      {showModal && (
+        <ModalInfo
+          message="L'article est publié !"
+          image={MixyFiesta}
+          closeModal={closeModal}
+        />
+      )}
     </div>
   );
 }
