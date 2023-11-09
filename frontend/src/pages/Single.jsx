@@ -107,14 +107,15 @@ export default function Single() {
               <span>{user.username}</span>
               <p className="dateInfo">Publié le {formattedDate}</p>
             </div>
-            {currentUser.user && currentUser.user.id === 1 && (
-              <div className="edit">
-                <Link to={`/write?edit=${post.id}`} state={post}>
-                  <img src={Edit} alt="edit" />
-                </Link>
-                <img onClick={handleDelete} src={Delete} alt="delete" />
-              </div>
-            )}
+            {(currentUser.user && currentUser.user.id === 1) ||
+              (currentUser.user.id === post.user_id && (
+                <div className="edit">
+                  <Link to={`/write?edit=${post.id}`} state={post}>
+                    <img src={Edit} alt="edit" />
+                  </Link>
+                  <img onClick={handleDelete} src={Delete} alt="delete" />
+                </div>
+              ))}
           </div>
         ) : (
           <div className="user">
