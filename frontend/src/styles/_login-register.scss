@@ -4,10 +4,42 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  z-index: 2;
+  background: white;
+  box-shadow: 0 0 30px -10px rgba(0, 161, 206, 0.2);
+  z-index: 1;
+  position: relative;
+
+  .imgAndForm {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logoMixyHey,
+    .logoMixyRegister {
+      position: absolute;
+      z-index: 2;
+      width: clamp(130px, 50%, 150px);
+      height: auto;
+    }
+
+    .logoMixyHey {
+      top: -240px;
+      right: -135px;
+      rotate: 20deg;
+    }
+
+    .logoMixyRegister {
+      top: -300px;
+      right: inherit;
+      left: -150px;
+      rotate: 10deg;
+      transform: inherit;
+    }
+  }
 
   form {
-    position: relative;
+    position: absolute;
     margin-top: 5rem;
     display: flex;
     flex-direction: column;
@@ -16,28 +48,7 @@
     width: clamp(250px, 80%, 300px);
     border: 1px solid lightgray;
     border-radius: 12px;
-
-    .logoMixyHey,
-    .logoMixyRegister {
-      position: absolute;
-      z-index: -1;
-      width: clamp(130px, 50%, 150px);
-      height: auto;
-    }
-
-    .logoMixyHey {
-      top: -95px;
-      right: 15px;
-      rotate: 20deg;
-    }
-
-    .logoMixyRegister {
-      top: -100px;
-      right: inherit;
-      left: -30px;
-      rotate: 10deg;
-      transform: inherit;
-    }
+    z-index: 3;
 
     .logoDevMX {
       width: 150px;
@@ -102,18 +113,18 @@
     flex-direction: row;
     height: 100vh;
 
-    form {
+    .imgAndForm {
       .logoMixyHey {
-        width: clamp(130px, 80%, 220px);
-        top: 45px;
-        right: -145px;
+        width: 220px;
+        top: -100px;
+        right: -265px;
         rotate: 45deg;
       }
 
       .logoMixyRegister {
-        width: clamp(130px, 100%, 280px);
-        top: 90px;
-        right: -225px;
+        width: 250px;
+        top: -100px;
+        right: -310px;
         left: inherit;
         rotate: 30deg;
         transform: rotateY(180deg);

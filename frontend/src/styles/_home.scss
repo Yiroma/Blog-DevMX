@@ -17,6 +17,7 @@
         width: 90%;
         margin: 0 auto;
         transition: 0.2s all;
+        z-index: 1;
 
         &::after {
           content: "";

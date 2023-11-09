@@ -21,9 +21,13 @@
   display: flex;
   justify-content: center;
   font-family: $fontFamily;
+  background: url("./assets/bg.png") fixed;
 
   .container {
     width: clamp(320px, 100%, 1024px);
+    padding: 0 10px;
+    background: white;
+    box-shadow: 0 0 30px -10px rgba(0, 161, 206, 0.2);
 
     .link {
       text-decoration: none;
