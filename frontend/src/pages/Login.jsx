@@ -45,36 +45,38 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <form>
+      <div className="imgAndForm">
         <img className="logoMixyHey" src={MixyHey} alt="Mixy mascotte" />
-        <img className="logoDevMX" src={Logo} alt="devMX" />
-        <h2>Identifez-vous</h2>
-        <label htmlFor="emailInput">Email</label>
-        <input
-          type="email"
-          id="emailInput"
-          placeholder="email@mail.com"
-          name="email"
-          onChange={handleChangeInput}
-        />
-        <label htmlFor="passwordInput">Mot de passe</label>
-        <input
-          type="password"
-          id="passwordInput"
-          placeholder="************"
-          name="password"
-          onChange={handleChangeInput}
-        />
-        <button type="button" onClick={handleSubmit}>
-          Se connecter
-        </button>
-        {err && <p>{err}</p>}
-        <span>
-          {`Vous n'avez pas de compte ?`}
-          <br />
-          <Link to="/register"> Créer un compte</Link>
-        </span>
-      </form>
+        <form>
+          <img className="logoDevMX" src={Logo} alt="devMX" />
+          <h2>Identifez-vous</h2>
+          <label htmlFor="emailInput">Email</label>
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="email@mail.com"
+            name="email"
+            onChange={handleChangeInput}
+          />
+          <label htmlFor="passwordInput">Mot de passe</label>
+          <input
+            type="password"
+            id="passwordInput"
+            placeholder="************"
+            name="password"
+            onChange={handleChangeInput}
+          />
+          <button type="button" onClick={handleSubmit}>
+            Se connecter
+          </button>
+          {err && <p>{err}</p>}
+          <span>
+            {`Vous n'avez pas de compte ?`}
+            <br />
+            <Link to="/register"> Créer un compte</Link>
+          </span>
+        </form>
+      </div>
     </div>
   );
 }

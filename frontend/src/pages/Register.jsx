@@ -32,51 +32,53 @@ export default function Register() {
 
   return (
     <div className="login-container">
-      <form>
+      <div className="imgAndForm">
         <img
           className="logoMixyRegister"
           src={MixyRegister}
           alt="Mixy mascotte"
         />
-        <img className="logoDevMX" src={Logo} alt="devMX" />
-        <h2>Enregistrez-vous</h2>
-        <label htmlFor="userNameInput">Pseudo</label>
-        <input
-          required
-          type="text"
-          id="userNameInput"
-          placeholder="Pseudo"
-          name="username"
-          onChange={handleChangeInput}
-        />
-        <label htmlFor="emailInput">Email</label>
-        <input
-          required
-          type="email"
-          id="emailInput"
-          placeholder="email@mail.com"
-          name="email"
-          onChange={handleChangeInput}
-        />
-        <label htmlFor="passwordInput">Mot de passe</label>
-        <input
-          required
-          type="password"
-          id="passwordInput"
-          placeholder="************"
-          name="password"
-          onChange={handleChangeInput}
-        />
-        <button type="button" onClick={handleSubmit}>
-          Créer un compte
-        </button>
-        {err && <p>{err}</p>}
-        <span>
-          Vous avez déjà compte ?
-          <br />
-          <Link to="/login"> Identifiez-vous</Link>
-        </span>
-      </form>
+        <form>
+          <img className="logoDevMX" src={Logo} alt="devMX" />
+          <h2>Enregistrez-vous</h2>
+          <label htmlFor="userNameInput">Pseudo</label>
+          <input
+            required
+            type="text"
+            id="userNameInput"
+            placeholder="Pseudo"
+            name="username"
+            onChange={handleChangeInput}
+          />
+          <label htmlFor="emailInput">Email</label>
+          <input
+            required
+            type="email"
+            id="emailInput"
+            placeholder="email@mail.com"
+            name="email"
+            onChange={handleChangeInput}
+          />
+          <label htmlFor="passwordInput">Mot de passe</label>
+          <input
+            required
+            type="password"
+            id="passwordInput"
+            placeholder="************"
+            name="password"
+            onChange={handleChangeInput}
+          />
+          <button type="button" onClick={handleSubmit}>
+            Créer un compte
+          </button>
+          {err && <p>{err}</p>}
+          <span>
+            Vous avez déjà compte ?
+            <br />
+            <Link to="/login"> Identifiez-vous</Link>
+          </span>
+        </form>
+      </div>
     </div>
   );
 }
