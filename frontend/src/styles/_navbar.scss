@@ -6,6 +6,7 @@
         height: 50px;
       }
     }
+
     .linkUserPublishContainer {
       display: none;
     }
@@ -18,11 +19,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .logo {
         img {
           height: 50px;
         }
       }
+
       .linkUserPublishContainer {
         display: flex;
         flex-direction: row;
@@ -59,26 +62,26 @@
               font-size: 1rem;
               font-weight: 300;
             }
-          }
 
-          a::before {
-            top: 0px;
-            transform: translateY(-10px);
-          }
+            &::before {
+              top: 0px;
+              transform: translateY(-10px);
+            }
 
-          a::after {
-            bottom: 0px;
-            transform: translateY(10px);
-          }
+            &::after {
+              bottom: 0px;
+              transform: translateY(10px);
+            }
 
-          a:hover::before {
-            opacity: 1;
-            transform: translateY(0px);
-          }
+            &:hover::before {
+              opacity: 1;
+              transform: translateY(0px);
+            }
 
-          a:hover::after {
-            opacity: 1;
-            transform: translateY(0px);
+            &:hover::after {
+              opacity: 1;
+              transform: translateY(0px);
+            }
           }
         }
 
@@ -88,6 +91,7 @@
           border: 1px solid $lightGray;
           border-radius: 8px;
           height: 36px;
+
           .userAndLog {
             display: flex;
             flex-direction: column;
@@ -118,6 +122,7 @@
           .userImg {
             width: 36px;
             height: 36px;
+
             a {
               img {
                 width: 36px;
