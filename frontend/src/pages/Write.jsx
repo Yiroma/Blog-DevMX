@@ -2,9 +2,6 @@ import { useContext, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// import toast, { toastConfig } from "react-simple-toasts";
-// import "react-simple-toasts/dist/theme/dark.css"; // choose your theme
-
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -17,17 +14,19 @@ import ModalInfo from "../components/ModalInfo";
 
 import MixyFiesta from "../assets/mixy/mixy-fiesta.webp";
 
-// toastConfig({ theme: "dark" }); // configure global toast settings, like theme
-
 export default function Write() {
   const { currentUser } = useContext(AuthContext);
+
+  const inputRef = useRef();
 
   const navigate = useNavigate();
 
   const state = useLocation().state;
 
+  moment.locale("fr");
+
   const [title, setTitle] = useState(state?.title || "");
-  const [value, setValue] = useState(state?.desc || "");
+  const [description, setDescription] = useState(state?.desc || "");
   const [cat, setCat] = useState(state?.cat || "");
 
   const [previewImage, setPreviewImage] = useState(
@@ -38,10 +37,6 @@ export default function Write() {
 
   const [showModal, setShowModal] = useState(false);
 
-  const inputRef = useRef();
-
-  moment.locale("fr");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -49,22 +44,18 @@ export default function Write() {
       const formData = new FormData();
       formData.append("file", inputRef.current.files[0]);
 
-      const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/upload`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData, {
+        withCredentials: true,
+      });
       if (res.status === 201) {
         if (state) {
           await axios.put(
             `${import.meta.env.VITE_BACKEND_URL}/posts/${state.id}`,
             {
               title,
-              desc: value,
+              desc: description,
               cat,
-              img: res.data,
+              iomentg: res.data,
               date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
               user_id: currentUser?.user?.id,
             },
@@ -75,7 +66,7 @@ export default function Write() {
             `${import.meta.env.VITE_BACKEND_URL}/posts/`,
             {
               title,
-              desc: value,
+              desc: description,
               cat,
               img: res.data,
               date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
@@ -124,8 +115,8 @@ export default function Write() {
             <ReactQuill
               className="editor"
               theme="snow"
-              value={value}
-              onChange={setValue}
+              value={description}
+              onChange={setDescription}
             />
           </div>
         </div>
@@ -210,11 +201,7 @@ export default function Write() {
               />
 
               <div className="buttons">
-                <button
-                  className="btnSubmit"
-                  type="submit"
-                  // onClick={() => toast(`${MixyFiesta}Votre articles est publié !`)}
-                >
+                <button className="btnSubmit" type="submit">
                   Publier
                 </button>
               </div>
@@ -223,11 +210,7 @@ export default function Write() {
         </div>
       </div>
       {showModal && (
-        <ModalInfo
-          message="L'article est publié !"
-          image={MixyFiesta}
-          closeModal={closeModal}
-        />
+        <ModalInfo message="L'article est publié !" image={MixyFiesta} closeModal={closeModal} />
       )}
     </div>
   );
