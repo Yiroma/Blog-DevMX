@@ -36,13 +36,7 @@ const verifyPassword = (req, res) => {
 
         delete req.user.hashedPassword;
 
-        res
-          .status(200)
-          // .cookie("access_token", token, {
-          //   httpOnly: false,
-          //   expires: new Date(Date.now() + 1000 * 60 * 60),
-          // })
-          .send({ token, user: req.user });
+        res.status(200).send({ token, user: req.user });
       } else {
         res.status(401).json("Les informations sont invalides. ");
       }
@@ -70,27 +64,6 @@ const verifyToken = (req, res, next) => {
   } else {
     res.status(401).send("email ou mot de passe incorrect");
   }
-
-  // try {
-  //   const authorizationHeader = req.get("Authorization");
-
-  //   if (authorizationHeader == null) {
-  //     throw new Error("Authorization header is missing");
-  //   }
-
-  //   const [type, token] = authorizationHeader.split(" ");
-
-  //   if (type !== "Bearer") {
-  //     throw new Error("Authorization header has not the 'Bearer' type");
-  //   }
-
-  //   req.payload = jwt.verify(token, process.env.JWT_SECRET);
-
-  //   next();
-  // } catch (err) {
-  //   console.error(err);
-  //   res.sendStatus(401);
-  // }
 };
 
 module.exports = {
