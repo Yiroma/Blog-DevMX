@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 import Logo from "../assets/logo-devmx.svg";
+import ImgUserDefault from "../assets/icons/user-default.svg";
 
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -50,9 +51,7 @@ const Navbar = () => {
             <div className="userContainer">
               <div className="userAndLog">
                 <Link className="link" to={`/users/${currentUser.user.id}`}>
-                  <span className="username">
-                    {currentUser?.user.username}{" "}
-                  </span>
+                  <span className="username">{currentUser?.user.username} </span>
                 </Link>
 
                 <span
@@ -68,9 +67,13 @@ const Navbar = () => {
               <div className="userImg">
                 <Link className="link" to={`/users/${currentUser.user.id}`}>
                   <img
-                    src={`${
-                      import.meta.env.VITE_BACKEND_URL
-                    }/uploads/pictures/${currentUser.user.img}`}
+                    src={
+                      currentUser.user.img
+                        ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
+                            currentUser.user.img
+                          }`
+                        : ImgUserDefault
+                    }
                     alt={currentUser.username}
                   />
                 </Link>
