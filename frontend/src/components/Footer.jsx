@@ -6,11 +6,11 @@ import LogoYiroma from "../assets/logo-yiroma.svg";
 export default function Footer() {
   return (
     <footer>
-      <Link to="/login">
+      <Link to="/">
         <img src={Logo} alt="devMX" />
       </Link>
       <div className="credit">
-        <Link>
+        <Link to="https://github.com/Yiroma">
           <img src={LogoYiroma} alt="yiroma" />
           <p>
             <b>Yi Romaric</b>
