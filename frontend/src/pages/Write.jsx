@@ -58,7 +58,6 @@ export default function Write() {
         user_id: currentUser?.user?.id,
       };
 
-      // Ajoutez la condition pour inclure l'image uniquement si elle a été modifiée
       if (res.status === 201) {
         updatedData = {
           ...updatedData,
@@ -66,7 +65,6 @@ export default function Write() {
         };
       }
 
-      // Ajoutez la condition pour vérifier si les données ont changé
       const dataChanged =
         title !== state?.title ||
         description !== state?.desc ||
