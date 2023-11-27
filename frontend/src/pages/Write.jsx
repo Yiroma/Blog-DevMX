@@ -42,50 +42,53 @@ export default function Write() {
 
     try {
       const formData = new FormData();
-      formData.append("file", inputRef.current.files[0]);
-
-      const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/upload`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
-      if (res.status === 201) {
-        if (state) {
-          await axios.put(
-            `${import.meta.env.VITE_BACKEND_URL}/posts/${state.id}`,
-            {
-              title,
-              desc: description,
-              cat,
-              iomentg: res.data,
-              date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
-              user_id: currentUser?.user?.id,
-            },
-            { withCredentials: true }
-          );
-        } else {
-          await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/posts/`,
-            {
-              title,
-              desc: description,
-              cat,
-              img: res.data,
-              date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
-              user_id: currentUser?.user?.id,
-            },
-            { withCredentials: true }
-          );
-        }
-        setShowModal(true);
-
-        setTimeout(() => {
-          setShowModal(false);
-          navigate("/");
-        }, 5000);
+      if (inputRef.current.files[0]) {
+        formData.append("file", inputRef.current.files[0]);
       }
+
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData, {
+        withCredentials: true,
+      });
+
+      let updatedData = {
+        title,
+        desc: description,
+        cat,
+        date: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
+        user_id: currentUser?.user?.id,
+      };
+
+      // Ajoutez la condition pour inclure l'image uniquement si elle a été modifiée
+      if (res.status === 201) {
+        updatedData = {
+          ...updatedData,
+          img: res.data,
+        };
+      }
+
+      // Ajoutez la condition pour vérifier si les données ont changé
+      const dataChanged =
+        title !== state?.title ||
+        description !== state?.desc ||
+        cat !== state?.cat ||
+        res.status === 201;
+
+      if (state && dataChanged) {
+        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/posts/${state.id}`, updatedData, {
+          withCredentials: true,
+        });
+      } else if (!state && dataChanged) {
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/posts/`, updatedData, {
+          withCredentials: true,
+        });
+      }
+
+      setShowModal(true);
+
+      setTimeout(() => {
+        setShowModal(false);
+        navigate("/");
+      }, 5000);
     } catch (err) {
       console.error(err);
     }
@@ -214,11 +217,7 @@ export default function Write() {
         </div>
       </div>
       {showModal && (
-        <ModalInfo
-          message="L'article est publié !"
-          image={MixyFiesta}
-          closeModal={closeModal}
-        />
+        <ModalInfo message="L'article est publié !" image={MixyFiesta} closeModal={closeModal} />
       )}
     </div>
   );

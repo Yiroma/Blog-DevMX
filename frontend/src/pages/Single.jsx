@@ -15,9 +15,7 @@ import ImgUserDefault from "../assets/icons/user-default.svg";
 export default function Single() {
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
-
   const { currentUser } = useContext(AuthContext);
-
   moment.locale("fr");
   const formattedDate = moment(post.date).format("DD/MM/YYYY HH:mm");
 
@@ -65,7 +63,6 @@ export default function Single() {
       const deleteImgRes = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/deleteImg/${post?.img}`
       );
-      navigate("/");
 
       if (deleteImgRes.status === 201) {
         navigate("/");
@@ -84,44 +81,28 @@ export default function Single() {
           src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post?.img}`}
           alt={post?.title}
         />
-        {currentUser && currentUser.user ? (
+        {currentUser && currentUser.user && (
           <div className="user">
             <img
               src={
-                currentUser.user.img
+                user.img
                   ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`
                   : ImgUserDefault
               }
               alt={user.username}
             />
-
             <div className="info">
               <span>{user.username}</span>
               <p className="dateInfo">Publié le {formattedDate}</p>
             </div>
-            {currentUser && (
+            {currentUser.user.id === post.user_id || currentUser.user.id === 1 ? (
               <div className="edit">
-                {(currentUser.user.id === post.user_id || currentUser.user.id === 1) && (
-                  <>
-                    <Link to={`/write?edit=${post.id}`} state={post}>
-                      <img src={Edit} alt="edit" />
-                    </Link>
-                    <img onClick={handleDelete} src={Delete} alt="delete" />
-                  </>
-                )}
+                <Link to={`/write?edit=${post.id}`} state={post}>
+                  <img src={Edit} alt="edit" />
+                </Link>
+                <img onClick={handleDelete} src={Delete} alt="delete" />
               </div>
-            )}
-          </div>
-        ) : (
-          <div className="user">
-            <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
-              alt={user.username}
-            />
-            <div className="info">
-              <span>{user.username}</span>
-              <p>Publié le {formattedDate}</p>
-            </div>
+            ) : null}
           </div>
         )}
 

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import Edit from "../assets/icons/edit.svg";
 import Delete from "../assets/icons/delete.svg";
+import ImgUserDefault from "../assets/icons/user-default.svg";
 
 export default function User() {
   const { currentUser } = useContext(AuthContext);
@@ -106,7 +107,11 @@ export default function User() {
         <div className="userImgAndDetails">
           {imgLoaded && (
             <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
+              src={
+                user.img
+                  ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`
+                  : ImgUserDefault
+              }
               alt={user.username}
             />
           )}
@@ -184,26 +189,33 @@ export default function User() {
         <div className="otherUsersContainer">
           <h2>Liste des utilisateurs</h2>
 
-          {allUsers.map((user) => (
-            <div className="otherUsersImgAndDetails" key={user.id}>
-              <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
-                alt={user.username}
-              />
-              <div className="otherUsersDetails">
-                <h3>{user.username}</h3>
-                <p>{user.email}</p>
-                <div className="btnEditDelete">
-                  <button className="btnEdit" type="button">
-                    <img src={Edit} alt="edit" />
-                  </button>
-                  <button className="btnDelete" type="button">
-                    <img src={Delete} alt="delete" />
-                  </button>
+          {allUsers.map(
+            (user) =>
+              user.id !== 1 && (
+                <div className="otherUsersImgAndDetails" key={user.id}>
+                  <img
+                    src={
+                      user.img
+                        ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`
+                        : ImgUserDefault
+                    }
+                    alt={user.username}
+                  />
+                  <div className="otherUsersDetails">
+                    <h3>{user.username}</h3>
+                    <p>{user.email}</p>
+                    <div className="btnEditDelete">
+                      <button className="btnEdit" type="button">
+                        <img src={Edit} alt="edit" />
+                      </button>
+                      <button className="btnDelete" type="button">
+                        <img src={Delete} alt="delete" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              )
+          )}
         </div>
       )}
     </div>
