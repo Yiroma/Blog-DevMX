@@ -65,11 +65,12 @@ export default function Single() {
       const deleteImgRes = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/deleteImg/${post?.img}`
       );
+      navigate("/");
 
       if (deleteImgRes.status === 201) {
         navigate("/");
       } else {
-        console.error("Erreur lors de la suppression de l'image.");
+        console.error("Erreur lors de la suppression de l'article");
       }
     } catch (err) {
       console.error(err);
@@ -88,7 +89,7 @@ export default function Single() {
             <img
               src={
                 currentUser.user.img
-                  ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${currentUser.user.img}`
+                  ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`
                   : ImgUserDefault
               }
               alt={user.username}
@@ -98,15 +99,18 @@ export default function Single() {
               <span>{user.username}</span>
               <p className="dateInfo">Publié le {formattedDate}</p>
             </div>
-            {(currentUser.user && currentUser.user.id === 1) ||
-              (currentUser.user.id === post.user_id && (
-                <div className="edit">
-                  <Link to={`/write?edit=${post.id}`} state={post}>
-                    <img src={Edit} alt="edit" />
-                  </Link>
-                  <img onClick={handleDelete} src={Delete} alt="delete" />
-                </div>
-              ))}
+            {currentUser && (
+              <div className="edit">
+                {(currentUser.user.id === post.user_id || currentUser.user.id === 1) && (
+                  <>
+                    <Link to={`/write?edit=${post.id}`} state={post}>
+                      <img src={Edit} alt="edit" />
+                    </Link>
+                    <img onClick={handleDelete} src={Delete} alt="delete" />
+                  </>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div className="user">

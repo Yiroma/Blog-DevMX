@@ -21,20 +21,13 @@ export default function User() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/posts`,
-          {
-            withCredentials: true,
-          }
-        );
-        const userPosts = res.data.filter(
-          (post) => post.user_id === currentUser.user.id
-        );
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/posts`, {
+          withCredentials: true,
+        });
+        const userPosts = res.data.filter((post) => post.user_id === currentUser.user.id);
         setCreatedPosts(userPosts);
 
-        const otherPosts = res.data.filter(
-          (post) => post.user_id !== currentUser.user.id
-        );
+        const otherPosts = res.data.filter((post) => post.user_id !== currentUser.user.id);
         setOtherUserPosts(otherPosts);
       } catch (err) {
         console.error(err);
@@ -64,12 +57,9 @@ export default function User() {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/users`,
-          {
-            withCredentials: true,
-          }
-        );
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/users`, {
+          withCredentials: true,
+        });
         setAllUsers(res.data);
       } catch (err) {
         console.error(err);
@@ -86,24 +76,19 @@ export default function User() {
   const confirmDelete = async () => {
     if (postIdToDelete) {
       try {
-        await axios.delete(
-          `${import.meta.env.VITE_BACKEND_URL}/posts/${postIdToDelete}`,
-          {
-            withCredentials: true,
-          }
-        );
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${postIdToDelete}`, {
+          withCredentials: true,
+        });
 
         if (imageToDelete) {
-          await axios.delete(
-            `${import.meta.env.VITE_BACKEND_URL}/deleteImg/${imageToDelete}`,
-            {
-              withCredentials: true,
-            }
-          );
+          await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteImg/${imageToDelete}`, {
+            withCredentials: true,
+          });
         }
 
-        setCreatedPosts((prevPosts) =>
-          prevPosts.filter((post) => post.id !== postIdToDelete)
+        setCreatedPosts((prevPosts) => prevPosts.filter((post) => post.id !== postIdToDelete));
+        setOtherUserPosts((prevOtherPosts) =>
+          prevOtherPosts.filter((post) => post.id !== postIdToDelete)
         );
 
         setPostIdToDelete(null);
@@ -121,9 +106,7 @@ export default function User() {
         <div className="userImgAndDetails">
           {imgLoaded && (
             <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
-                user.img
-              }`}
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
               alt={user.username}
             />
           )}
@@ -145,22 +128,16 @@ export default function User() {
           <h3>{post.title}</h3>
           <div className="userPostsDetails">
             <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${
-                post.img
-              }`}
+              src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
               alt={post.title}
             />
             <div className="edit">
               <Link to={`/write?edit=${post.id}`} state={post}>
                 <img src={Edit} alt="edit" />
               </Link>
-              <img
-                onClick={() => handleDelete(post.id, post.img)}
-                src={Delete}
-                alt="delete"
-              />
+              <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
             </div>
-            {postIdToDelete && (
+            {postIdToDelete === post.id && (
               <div>
                 <p className="deleteAlert">Supprimer cette article ?</p>
                 <button className="btnConfirmDelete" onClick={confirmDelete}>
@@ -180,28 +157,19 @@ export default function User() {
               <h3>{post.title}</h3>
               <div className="otherPostsDetails">
                 <img
-                  src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${
-                    post.img
-                  }`}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/uploads/images/${post.img}`}
                   alt={post.title}
                 />
                 <div className="edit">
                   <Link to={`/write?edit=${post.id}`} state={post}>
                     <img src={Edit} alt="edit" />
                   </Link>
-                  <img
-                    onClick={() => handleDelete(post.id, post.img)}
-                    src={Delete}
-                    alt="delete"
-                  />
+                  <img onClick={() => handleDelete(post.id, post.img)} src={Delete} alt="delete" />
                 </div>
-                {postIdToDelete && (
+                {postIdToDelete === post.id && (
                   <div>
                     <p className="deleteAlert">Supprimer cette article ?</p>
-                    <button
-                      className="btnConfirmDelete"
-                      onClick={confirmDelete}
-                    >
+                    <button className="btnConfirmDelete" onClick={confirmDelete}>
                       Supprimer
                     </button>
                   </div>
@@ -219,9 +187,7 @@ export default function User() {
           {allUsers.map((user) => (
             <div className="otherUsersImgAndDetails" key={user.id}>
               <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
-                  user.img
-                }`}
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${user.img}`}
                 alt={user.username}
               />
               <div className="otherUsersDetails">

@@ -51,7 +51,9 @@ const Navbar = () => {
             <div className="userContainer">
               <div className="userAndLog">
                 <Link className="link" to={`/users/${currentUser.user.id}`}>
-                  <span className="username">{currentUser?.user.username} </span>
+                  <span className="username">
+                    {currentUser?.user.username}{" "}
+                  </span>
                 </Link>
 
                 <span
@@ -69,9 +71,9 @@ const Navbar = () => {
                   <img
                     src={
                       currentUser.user.img
-                        ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
-                            currentUser.user.img
-                          }`
+                        ? `${
+                            import.meta.env.VITE_BACKEND_URL
+                          }/uploads/pictures/${currentUser.user.img}`
                         : ImgUserDefault
                     }
                     alt={currentUser.username}

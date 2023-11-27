@@ -44,9 +44,13 @@ export default function Write() {
       const formData = new FormData();
       formData.append("file", inputRef.current.files[0]);
 
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload`, formData, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/upload`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.status === 201) {
         if (state) {
           await axios.put(
@@ -210,7 +214,11 @@ export default function Write() {
         </div>
       </div>
       {showModal && (
-        <ModalInfo message="L'article est publié !" image={MixyFiesta} closeModal={closeModal} />
+        <ModalInfo
+          message="L'article est publié !"
+          image={MixyFiesta}
+          closeModal={closeModal}
+        />
       )}
     </div>
   );
