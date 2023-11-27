@@ -37,7 +37,7 @@ CREATE TABLE
     `title` VARCHAR(255) NOT NULL,
     `desc` VARCHAR(3000) NOT NULL,
     `cat` VARCHAR(55) NOT NULL,
-    `img` VARCHAR(255) NOT NULL,
+    `img` VARCHAR(255) NULL,
     `date` DATETIME NOT NULL,
     `user_id` INT NOT NULL,
     INDEX `user_id_index` (`user_id` ASC) VISIBLE,

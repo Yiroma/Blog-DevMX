@@ -40,19 +40,31 @@ const Navbar = () => {
         </li>
 
         <li>
-          <Link className="link" to="/?cat=actu" onClick={handleToggleMobileNav}>
+          <Link
+            className="link"
+            to="/?cat=actu"
+            onClick={handleToggleMobileNav}
+          >
             Actu
           </Link>
         </li>
 
         <li>
-          <Link className="link" to="/?cat=event" onClick={handleToggleMobileNav}>
+          <Link
+            className="link"
+            to="/?cat=event"
+            onClick={handleToggleMobileNav}
+          >
             Evènement
           </Link>
         </li>
 
         <li>
-          <Link className="link" to="/?cat=tips" onClick={handleToggleMobileNav}>
+          <Link
+            className="link"
+            to="/?cat=tips"
+            onClick={handleToggleMobileNav}
+          >
             Tips & Astuces
           </Link>
         </li>
@@ -81,7 +93,9 @@ const Navbar = () => {
               <img
                 src={
                   currentUser.user.img
-                    ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${currentUser.user.img}`
+                    ? `${import.meta.env.VITE_BACKEND_URL}/uploads/pictures/${
+                        currentUser.user.img
+                      }`
                     : ImgUserDefault
                 }
                 alt={currentUser.username}
