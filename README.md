@@ -2,7 +2,7 @@
   <br>
   <img alt="DevMX" src="./frontend/src/assets/logo-devmx.svg" width="300px">
   <h1>DevMX, le Blog</h1>
-  <strong>By Romaric YI</strong>
+  <strong>by Romaric YI</strong>
   
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/slinkity/slinkity/blob/main/LICENSE.md)
 </div>
@@ -67,7 +67,6 @@
 ### Tools
 
 - _Concurrently_ : Allows for several commands to run concurrently in the same CLI
-- _Husky_ : Allows to execute specific commands that trigger on _git_ events
 - _Vite_ : Alternative to _Create-React-App_, packaging less tools for a more fluid experience
 - _ESLint_ : "Quality of code" tool, ensures chosen rules will be enforced
 - _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
